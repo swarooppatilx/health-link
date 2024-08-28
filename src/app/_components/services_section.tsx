@@ -11,10 +11,12 @@ const ServicesSection = () => (
       </a>
     </div>
     <div className="bg-white rounded-lg shadow-md">
+    <Link href="/services/appointment">
       <div className="p-4 border-b flex justify-between items-center text-nhs-blue font-bold">
         <span>Book appoinment</span>
         <FontAwesomeIcon icon={faChevronRight} className="w-6 h-6" />
       </div>
+      </Link>
       <Link href="/services/prescriptions">
         <div className="p-4 border-b flex justify-between items-center text-nhs-blue font-bold">
           <span>Request repeat prescriptions</span>
