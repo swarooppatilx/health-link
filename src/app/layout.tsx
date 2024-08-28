@@ -6,9 +6,9 @@ import { type Metadata } from 'next';
 import { TRPCReactProvider } from '@/trpc/react';
 
 export const metadata: Metadata = {
-  title: 'NHS App',
+  title: 'Health Link',
   description:
-    'Find information and advice on health conditions, symptoms, healthy living, medicines and how to get help.',
+    'Your one stop soultion for hospital appointments, health records and more',
   icons: [{ rel: 'icon', url: '/favicon.ico' }],
 };
 

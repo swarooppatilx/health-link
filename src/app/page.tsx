@@ -9,8 +9,8 @@ export default function NHSIntro() {
           <Image
             src="/nhs-logo.png" // Replace with your actual NHS logo path
             alt="NHS Logo"
-            height={100}
-            width={100}
+            height={350}
+            width={350}
             className="mx-auto mt-52"
           />
         </div>
@@ -18,7 +18,7 @@ export default function NHSIntro() {
           Access your health services
         </p>
         <Link href="/home">
-          <button className="bg-white text-nhs-blue font-bold py-2 px-8 rounded">
+          <button className="bg-white text-nhs-blue font-bold py-2 px-4 rounded">
             Continue
           </button>
         </Link>
