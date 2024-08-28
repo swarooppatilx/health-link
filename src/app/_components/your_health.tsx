@@ -6,23 +6,25 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 const App = () => {
   return (
     <div className="mb-6 p-2">
-      <div className="flex justify-between mb-2">
-        <div className="flex flex-col justify-center mb-2">
-          <h3 className="font-bold">Your Health</h3>
-          <p>View your personal records and choices</p>
+      <div className="bg-white shadow-sm rounded-lg p-4 mb-6">
+        <div className="flex flex-col justify-center">
+          <h3 className="text-xl font-bold text-gray-800">Your Health</h3>
+          <p className="text-gray-600">
+            View your personal records and choices
+          </p>
         </div>
       </div>
       <div className="bg-white rounded-lg shadow-md">
-        <Link href="/health/records">
-          <div className="p-4 border-b flex justify-between items-center text-nhs-blue font-bold">
-            <span>Health record</span>
-            <FontAwesomeIcon icon={faChevronRight} className="w-6 h-6" />
-          </div>
-        </Link>
         <div className="p-4 border-b flex justify-between items-center text-nhs-blue font-bold">
           <span>View and manage prescriptions</span>
           <FontAwesomeIcon icon={faChevronRight} className="w-6 h-6" />
         </div>
+        <Link href="/health/records">
+          <div className="p-4 border-b flex justify-between items-center text-nhs-blue font-bold">
+            <span>Health Record</span>
+            <FontAwesomeIcon icon={faChevronRight} className="w-6 h-6" />
+          </div>
+        </Link>
         <div className="p-4 border-b flex justify-between items-center text-nhs-blue font-bold">
           <span>Upcoming and past appointments</span>
           <FontAwesomeIcon icon={faChevronRight} className="w-6 h-6" />

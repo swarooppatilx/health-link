@@ -18,7 +18,7 @@ export default function NHSIntro() {
           Access your health services
         </p>
         <Link href="/home">
-          <button className="bg-white text-nhs-blue font-bold py-2 px-4 rounded">
+          <button className="bg-white text-nhs-blue font-bold py-2 px-8 rounded">
             Continue
           </button>
         </Link>
