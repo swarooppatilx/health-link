@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
@@ -11,10 +13,12 @@ const App = () => {
         </div>
       </div>
       <div className="bg-white rounded-lg shadow-md">
-        <div className="p-4 border-b flex justify-between items-center text-nhs-blue font-bold">
-          <span>Health record</span>
-          <FontAwesomeIcon icon={faChevronRight} className="w-6 h-6" />
-        </div>
+        <Link href="/health/records">
+          <div className="p-4 border-b flex justify-between items-center text-nhs-blue font-bold">
+            <span>Health record</span>
+            <FontAwesomeIcon icon={faChevronRight} className="w-6 h-6" />
+          </div>
+        </Link>
         <div className="p-4 border-b flex justify-between items-center text-nhs-blue font-bold">
           <span>View and manage prescriptions</span>
           <FontAwesomeIcon icon={faChevronRight} className="w-6 h-6" />

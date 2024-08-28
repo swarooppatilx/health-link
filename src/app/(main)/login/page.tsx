@@ -13,12 +13,11 @@ export default function App() {
           <div className="mt-8">
             <h1 className="text-2xl font-semibold">Enter your email address</h1>
             <p className="mt-4">
-              If you have used the Health Link App or  website, you should
-              enter the email address you used to register for them.
+              If you have used the Health Link App or website, you should enter
+              the email address you used to register for them.
             </p>
             <p className="mt-4">
-              We will check if you have an account. If not, you can set one
-              up.
+              We will check if you have an account. If not, you can set one up.
             </p>
           </div>
           <div className="mt-8">

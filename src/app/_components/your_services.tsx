@@ -17,7 +17,7 @@ const App = () => {
           <span>Health Record</span>
           <FontAwesomeIcon icon={faChevronRight} className="w-6 h-6" />
         </div>
-        <Link href="/prescriptions">
+        <Link href="/services/prescriptions">
           <div className="p-4 border-b flex justify-between items-center text-nhs-blue font-bold">
             <span>Request repeat prescriptions</span>
             <FontAwesomeIcon icon={faChevronRight} className="w-6 h-6" />
