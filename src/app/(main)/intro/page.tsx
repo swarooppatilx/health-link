@@ -9,12 +9,12 @@ export default function NHSIntro() {
           <Image
             src="/nhs-logo.png" // Replace with your actual NHS logo path
             alt="NHS Logo"
-            height={100}
-            width={100}
+            height={280}
+            width={280}
             className="mx-auto mt-52"
           />
         </div>
-        <p className="text-white mt-60 mb-5 text-base font-bold">
+        <p className="text-white mt-44 mb-5 text-base font-bold">
           Access your health services
         </p>
         <Link href="/home">
