@@ -1,12 +1,12 @@
-import Header from '../../_components/header';
-import Health from '../../_components/your_health';
-import Footer from '../../_components/footer';
+import Header from '@/components/common/header';
+import Health from '@/components/health/your_health';
+import Footer from '@/components/common/footer';
 
 export default function NHSApp() {
   return (
-    <div className="max-w-md mx-auto bg-gray-100 h-screen flex flex-col">
+    <div className='mx-auto flex h-screen max-w-md flex-col bg-gray-100'>
       <Header />
-      <div className="flex-grow">
+      <div className='flex-grow'>
         <Health />
       </div>
       <Footer />

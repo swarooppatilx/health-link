@@ -1,10 +1,15 @@
-/**
- * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially useful
- * for Docker builds.
- */
+// Import the environment validation module
 await import('./src/env.js');
 
-/** @type {import("next").NextConfig} */
-const config = {};
+/**
+ * @type {import('next').NextConfig}
+ */
+const config = {
+  // Add Next.js configuration options here
+  // For example, you can specify React strict mode, swcMinify, etc.
+  reactStrictMode: true, // Enables React's Strict Mode
+  swcMinify: true, // Enables SWC-based minification for faster builds
+  // Add any other Next.js specific configurations here if needed
+};
 
 export default config;
