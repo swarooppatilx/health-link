@@ -4,9 +4,9 @@ import HealthRecord from '@/components/health/health_record';
 
 export default function NHSApp() {
   return (
-    <div className="max-w-md mx-auto bg-gray-100 h-screen flex flex-col">
+    <div className='mx-auto flex h-screen max-w-md flex-col bg-gray-100'>
       <Header />
-      <div className="flex-grow">
+      <div className='flex-grow'>
         <HealthRecord />
       </div>
       <Footer />

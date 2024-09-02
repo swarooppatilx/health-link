@@ -1,65 +1,62 @@
+'use client';
+
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
-
-// Define the data for each item in a JSON array
-const healthItems = [
-  {
-    title: 'View and manage prescriptions',
-    hasLink: false,
-  },
-  {
-    title: 'Health Record',
-    link: '/health/records',
-    hasLink: true,
-  },
-  {
-    title: 'Upcoming and past appointments',
-    hasLink: false,
-  },
-  {
-    title: 'Test results and imaging',
-    hasLink: false,
-  },
-  {
-    title: 'COVID-19 vaccine record',
-    hasLink: false,
-  },
-  {
-    title: 'COVID Pass',
-    hasLink: false,
-  },
-  {
-    title: 'Your health choices',
-    hasLink: false,
-  },
-];
+import { useEffect, useState } from 'react';
+import { type HealthItems } from '@/types/basic';
+import Spinner from '../common/spinner';
 
 const App = () => {
+  const [data, setData] = useState<HealthItems>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/services');
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status}`);
+        }
+        const result: HealthItems = await response.json();
+        setData(result);
+        console.log(result);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    void fetchData();
+  }, []);
+
+  if (loading) {
+    return <Spinner />;
+  }
+
   return (
-    <div className="mb-6 p-2">
-      <div className="bg-white shadow-sm rounded-lg p-4 mb-6">
-        <div className="flex flex-col justify-center">
-          <h3 className="text-xl font-bold text-gray-800">Your Health</h3>
-          <p className="text-gray-600">
-            View your personal records and choices
-          </p>
+    <div className='mb-6 p-2'>
+      <div className='mb-6 rounded-lg bg-white p-4 shadow-sm'>
+        <div className='flex flex-col justify-center'>
+          <h3 className='text-xl font-bold text-gray-800'>Your Health</h3>
+          <p className='text-gray-600'>View your personal records and choices</p>
         </div>
       </div>
-      <div className="bg-white rounded-lg shadow-md">
-        {healthItems.map((item, index) => (
+      <div className='rounded-lg bg-white shadow-md'>
+        {data.map((item, index) => (
           <div key={index}>
             {item.hasLink ? (
-              <Link href={item.link ?? ''}>
-                <div className="p-4 border-b flex justify-between items-center text-nhs-blue font-bold cursor-pointer">
+              <Link href={item.link ?? '#'}>
+                <div className='flex cursor-pointer items-center justify-between border-b p-4 font-bold text-nhs-blue'>
                   <span>{item.title}</span>
-                  <FontAwesomeIcon icon={faChevronRight} className="w-6 h-6" />
+                  <FontAwesomeIcon icon={faChevronRight} className='h-6 w-6' />
                 </div>
               </Link>
             ) : (
-              <div className="p-4 border-b flex justify-between items-center text-nhs-blue font-bold">
+              <div className='flex items-center justify-between border-b p-4 font-bold text-nhs-blue'>
                 <span>{item.title}</span>
-                <FontAwesomeIcon icon={faChevronRight} className="w-6 h-6" />
+                <FontAwesomeIcon icon={faChevronRight} className='h-6 w-6' />
               </div>
             )}
           </div>

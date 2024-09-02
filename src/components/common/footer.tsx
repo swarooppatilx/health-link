@@ -9,29 +9,29 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 const Footer = () => (
-  <div className="bg-nhs-blue flex justify-center py-4 text-gray-100 font-bold">
-    <Link href="/home">
-      <div className="flex flex-col items-center mx-4">
-        <FontAwesomeIcon icon={faHome} className="w-6 h-6" />
-        <div className="text-xs mt-1">Home</div>
+  <div className='flex justify-center bg-nhs-blue py-4 font-bold text-gray-100'>
+    <Link href='/home'>
+      <div className='mx-4 flex flex-col items-center'>
+        <FontAwesomeIcon icon={faHome} className='h-6 w-6' />
+        <div className='mt-1 text-xs'>Home</div>
       </div>
     </Link>
-    <Link href="/services">
-      <div className="flex flex-col items-center mx-4">
-        <FontAwesomeIcon icon={faPlus} className="w-6 h-6" />
-        <div className="text-xs mt-1">Services</div>
+    <Link href='/services'>
+      <div className='mx-4 flex flex-col items-center'>
+        <FontAwesomeIcon icon={faPlus} className='h-6 w-6' />
+        <div className='mt-1 text-xs'>Services</div>
       </div>
     </Link>
-    <Link href="/health">
-      <div className="flex flex-col items-center mx-4">
-        <FontAwesomeIcon icon={faHeart} className="w-6 h-6" />
-        <div className="text-xs mt-1">Your health</div>
+    <Link href='/health'>
+      <div className='mx-4 flex flex-col items-center'>
+        <FontAwesomeIcon icon={faHeart} className='h-6 w-6' />
+        <div className='mt-1 text-xs'>Your health</div>
       </div>
     </Link>
-    <Link href="/messages">
-      <div className="flex flex-col items-center mx-4">
-        <FontAwesomeIcon icon={faEnvelope} className="w-6 h-6" />
-        <div className="text-xs mt-1">Messages</div>
+    <Link href='/messages'>
+      <div className='mx-4 flex flex-col items-center'>
+        <FontAwesomeIcon icon={faEnvelope} className='h-6 w-6' />
+        <div className='mt-1 text-xs'>Messages</div>
       </div>
     </Link>
   </div>

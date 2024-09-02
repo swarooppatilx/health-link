@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
+import { type ServiceItem } from '@/types/basic';
 
 // Define the service data in an array
-const services = [
+const services: ServiceItem[] = [
   {
     title: 'Book Appointment',
     description: 'Get care and support to help stay well',
@@ -26,8 +27,5 @@ const services = [
 // Define the GET request handler
 export async function GET() {
   // Create the response object with JSON data
-  const data = services;
-
-  // Return the response as JSON
-  return NextResponse.json(data);
+  return NextResponse.json(services);
 }
