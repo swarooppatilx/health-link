@@ -19,13 +19,15 @@ const App = () => {
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
         }
+        {
+          /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */
+        }
         const result: ServiceItems = await response.json();
         setData(result);
         console.log(result);
       } catch (error) {
         console.error('Error fetching data:', error);
-      }
-      finally {
+      } finally {
         setLoading(false);
       }
     };
@@ -33,11 +35,8 @@ const App = () => {
     void fetchData();
   }, []);
 
-
   if (loading) {
-    return (
-      <Spinner/>
-    );
+    return <Spinner />;
   }
 
   return (

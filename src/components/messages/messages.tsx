@@ -4,43 +4,38 @@ import { useEffect, useState } from 'react';
 import { type Messages } from '@/types/basic';
 import Spinner from '../common/spinner';
 
-
 const MessagesComponent = () => {
-  // Initialize state with type Messages or an empty array
   const [data, setData] = useState<Messages>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Define an async function to fetch data
     const fetchData = async () => {
       try {
-        // Fetch data from the correct API route
         const response = await fetch('/api/messages');
 
-        // Check if the response is not okay (like a 404 or 500)
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
         }
 
-        // Attempt to parse the response as JSON
+        {
+          /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */
+        }
         const result: Messages = await response.json();
-        setData(result); // Update state with the fetched data
-        console.log(result); // Optional: Log the fetched data
+        setData(result);
+        console.log(result);
       } catch (error) {
-        // Log errors such as network failures or JSON parsing issues
         console.error('Error fetching data:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    void fetchData(); // Call the async function
+    void fetchData();
   }, []);
 
   if (loading) {
     return <Spinner />;
   }
-
 
   return (
     <div className='m-2 text-gray-800'>

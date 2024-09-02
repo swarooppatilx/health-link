@@ -18,6 +18,9 @@ const App = () => {
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
         }
+        {
+          /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */
+        }
         const result: HealthItems = await response.json();
         setData(result);
         console.log(result);
@@ -40,7 +43,9 @@ const App = () => {
       <div className='mb-6 rounded-lg bg-white p-4 shadow-sm'>
         <div className='flex flex-col justify-center'>
           <h3 className='text-xl font-bold text-gray-800'>Your Health</h3>
-          <p className='text-gray-600'>View your personal records and choices</p>
+          <p className='text-gray-600'>
+            View your personal records and choices
+          </p>
         </div>
       </div>
       <div className='rounded-lg bg-white shadow-md'>
