@@ -1,6 +1,6 @@
-import Header from '../../_components/header';
-import Services from '../../_components/your_services';
-import Footer from '../../_components/footer';
+import Header from '@/components/common/header';
+import Services from '@/components/services/your_services';
+import Footer from '@/components/common/footer';
 
 export default function NHSApp() {
   return (

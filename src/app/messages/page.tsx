@@ -1,7 +1,7 @@
-import Header from '../_components/header';
+import Header from '../../components/common/header';
 
-import Messages from '../_components/messages';
-import Footer from '../_components/footer';
+import Messages from '../../components/messages/messages';
+import Footer from '../../components/common/footer';
 
 export default function NHSApp() {
   return (

@@ -2,6 +2,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faClock } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 
+// Define data for pharmacy information
+const pharmacyInfo = {
+  name: 'Ashish Medico',
+  addressLine1: 'Near Ruby Hall Clinic, Pune',
+  addressLine2: 'SW12 9HD',
+  contactNumber: '01132421713',
+};
+
 const Prescriptions = () => (
   <div className="mx-auto bg-gray-100 flex flex-col">
     <Link href="/home">
@@ -23,10 +31,10 @@ const Prescriptions = () => (
       </h1>
 
       <div className="bg-white rounded-lg p-4 mb-4">
-        <h2 className="font-bold mb-1">Ashish Medico</h2>
-        <p className="text-sm mb-1">Near Ruby Hall Clinic, Pune</p>
-        <p className="text-sm mb-2">SW12 9HD</p>
-        <p className="text-blue-600">01132421713</p>
+        <h2 className="font-bold mb-1">{pharmacyInfo.name}</h2>
+        <p className="text-sm mb-1">{pharmacyInfo.addressLine1}</p>
+        <p className="text-sm mb-2">{pharmacyInfo.addressLine2}</p>
+        <p className="text-blue-600">{pharmacyInfo.contactNumber}</p>
       </div>
 
       <div className="bg-white rounded-lg p-4 mb-4 flex items-center">

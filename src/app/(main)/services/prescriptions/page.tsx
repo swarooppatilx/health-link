@@ -1,6 +1,6 @@
-import Header from '../../../_components/header';
-import Footer from '../../../_components/footer';
-import Prescriptions from '../../../_components/prescriptions';
+import Header from '../../../../components/common/header';
+import Footer from '../../../../components/common/footer';
+import Prescriptions from '../../../../components/services/prescriptions';
 
 export default function NHSApp() {
   return (
