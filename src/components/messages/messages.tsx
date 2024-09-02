@@ -25,7 +25,6 @@ const MessagesComponent = () => {
     void fetchData();
   }, []);
 
-
   if (loading) {
     return <Spinner />;
   }
