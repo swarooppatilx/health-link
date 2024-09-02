@@ -6,6 +6,7 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import { type ServiceItems } from '@/types/basic';
 import Spinner from '../common/spinner';
+import { fetcher } from 'utils/fetcher';
 
 const App = () => {
   const [data, setData] = useState<ServiceItems | null>(null);
@@ -14,15 +15,7 @@ const App = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/services');
-
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
-        }
-        {
-          /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */
-        }
-        const result: ServiceItems = await response.json();
+        const result = await fetcher<ServiceItems>('/api/services');
         setData(result);
         console.log(result);
       } catch (error) {

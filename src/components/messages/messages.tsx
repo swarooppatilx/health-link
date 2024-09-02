@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { type Messages } from '@/types/basic';
 import Spinner from '../common/spinner';
+import { fetcher } from 'utils/fetcher';
 
 const MessagesComponent = () => {
   const [data, setData] = useState<Messages>([]);
@@ -11,16 +12,7 @@ const MessagesComponent = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/messages');
-
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
-        }
-
-        {
-          /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */
-        }
-        const result: Messages = await response.json();
+        const result = await fetcher<Messages>('/api/messages');
         setData(result);
         console.log(result);
       } catch (error) {
@@ -32,6 +24,7 @@ const MessagesComponent = () => {
 
     void fetchData();
   }, []);
+
 
   if (loading) {
     return <Spinner />;
