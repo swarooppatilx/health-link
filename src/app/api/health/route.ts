@@ -12,10 +12,6 @@ const healthItems: HealthItem[] = [
     hasLink: true,
   },
   {
-    title: 'Upcoming and past appointments',
-    hasLink: false,
-  },
-  {
     title: 'Test results and imaging',
     hasLink: false,
   },
