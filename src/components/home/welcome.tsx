@@ -9,7 +9,7 @@ const getGreeting = () => {
 
 const WelcomeSection = () => {
   const greeting = getGreeting();
-  
+
   return (
     <div className='p-4'>
       <div className='mb-2 text-2xl font-bold text-blue-600'>Health Link</div>

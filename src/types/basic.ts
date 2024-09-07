@@ -1,4 +1,3 @@
-
 export type HealthItem = {
   title: string;
   link?: string;
@@ -16,7 +15,6 @@ export type ServiceItem = {
 
 export type ServiceItems = ServiceItem[];
 
-// Define the type for a single message
 export type Message = {
   title: string;
   items: string[];
@@ -30,7 +28,7 @@ export type HospitalItem = {
   description?: string;
   availableServices?: string[];
   availableBeds?: number;
-  link?: string; 
+  link?: string;
   hasLink: boolean;
 };
 

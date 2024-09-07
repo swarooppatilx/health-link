@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faClock } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 
-// Define data for pharmacy information
 const pharmacyInfo = {
   name: 'Ashish Medico',
   addressLine1: 'Near Ruby Hall Clinic, Pune',
