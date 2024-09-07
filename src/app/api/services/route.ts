@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { type ServiceItem } from '@/types/basic';
 
-// Define the service data in an array
 const services: ServiceItem[] = [
   {
     title: 'Book Appointment',
@@ -15,7 +14,7 @@ const services: ServiceItem[] = [
     hasLink: true,
   },
   {
-    title: 'Request repeat prescriptions',
+    title: 'View and manage prescriptions',
     link: '/services/prescriptions',
     hasLink: true,
   },
@@ -29,8 +28,6 @@ const services: ServiceItem[] = [
   },
 ];
 
-// Define the GET request handler
 export async function GET() {
-  // Create the response object with JSON data
   return NextResponse.json(services);
 }

@@ -3,10 +3,6 @@ import { type HealthItem } from '@/types/basic';
 
 const healthItems: HealthItem[] = [
   {
-    title: 'View and manage prescriptions',
-    hasLink: false,
-  },
-  {
     title: 'Health Record',
     link: '/health/records',
     hasLink: true,
