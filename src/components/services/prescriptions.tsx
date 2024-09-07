@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft, faClock } from '@fortawesome/free-solid-svg-icons';
-import Link from 'next/link';
+import { faClock } from '@fortawesome/free-solid-svg-icons';
+import BackButton from '@/components/common/back';
 
 const pharmacyInfo = {
   name: 'Ashish Medico',
@@ -11,17 +11,7 @@ const pharmacyInfo = {
 
 const Prescriptions = () => (
   <div className='mx-auto flex flex-col bg-gray-100'>
-    <Link href='/home'>
-      <div className='flex items-center justify-between bg-white p-4'>
-        <div className='flex items-center'>
-          <FontAwesomeIcon
-            icon={faChevronLeft}
-            className='mr-2 h-4 w-4 text-blue-600'
-          />
-          <span className='text-blue-600'>Back</span>
-        </div>
-      </div>
-    </Link>
+    <BackButton />
 
     {/* Main Content */}
     <div className='flex-grow p-4'>

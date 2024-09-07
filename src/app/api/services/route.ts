@@ -10,6 +10,11 @@ const services: ServiceItem[] = [
     hasLink: true,
   },
   {
+    title: 'Upcoming and past appointments',
+    link: '/services/appointment',
+    hasLink: true,
+  },
+  {
     title: 'Request repeat prescriptions',
     link: '/services/prescriptions',
     hasLink: true,

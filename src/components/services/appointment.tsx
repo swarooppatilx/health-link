@@ -1,17 +1,13 @@
 'use client';
 
-import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faChevronLeft,
-  faCalendarAlt,
-  faClock,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCalendarAlt, faClock } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import { type HospitalItem } from '@/types/basic';
 import Spinner from '@/components/common/spinner';
 import { fetcher } from 'utils/fetcher';
 import Modal from '@/components/common/modal';
+import BackButton from '@/components/common/back';
 
 export default function Page({ id }: { id: string }) {
   const [data, setData] = useState<HospitalItem | null>(null);
@@ -47,17 +43,7 @@ export default function Page({ id }: { id: string }) {
 
   return (
     <div className='mx-auto flex flex-col bg-gray-100'>
-      <Link href='/home'>
-        <div className='flex items-center justify-between bg-white p-4 shadow-md'>
-          <div className='flex items-center'>
-            <FontAwesomeIcon
-              icon={faChevronLeft}
-              className='mr-2 h-4 w-4 text-nhs-blue'
-            />
-            <span className='text-nhs-blue'>Back</span>
-          </div>
-        </div>
-      </Link>
+      <BackButton />
 
       {/* Main Content */}
       <div className='flex-grow p-4'>
@@ -67,11 +53,13 @@ export default function Page({ id }: { id: string }) {
           <h2 className='mb-2 text-xl font-semibold'>{data?.name}</h2>
           <p className='mb-2 text-sm text-gray-700'>{data?.description}</p>
           <p className='mb-2 text-sm'>
-            <strong className=' text-nhs-blue'>Available Services:</strong><br></br>
+            <strong className='text-nhs-blue'>Available Services:</strong>
+            <br></br>
             {data?.availableServices?.join(', ')}
           </p>
           <p className='text-sm'>
-            <strong className=' text-nhs-blue'>Available Beds:</strong> {data?.availableBeds}
+            <strong className='text-nhs-blue'>Available Beds:</strong>{' '}
+            {data?.availableBeds}
           </p>
         </div>
 
