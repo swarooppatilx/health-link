@@ -6,7 +6,7 @@ const services: ServiceItem[] = [
   {
     title: 'Book Appointment',
     description: 'Get care and support to help stay well',
-    link: '/services/appointment',
+    link: '/services/appointment/hospitals',
     hasLink: true,
   },
   {

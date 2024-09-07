@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import { type ServiceItems } from '@/types/basic';
-import Spinner from '../common/spinner';
+import Spinner from '@/components/common/spinner';
 import { fetcher } from 'utils/fetcher';
 
 const App = () => {

@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { type HealthItem } from '@/types/basic';
 
-// Define the data for each item in a JSON array
 const healthItems: HealthItem[] = [
   {
     title: 'View and manage prescriptions',
@@ -34,7 +33,6 @@ const healthItems: HealthItem[] = [
   },
 ];
 
-// Define the GET request handler
 export async function GET() {
   return NextResponse.json(healthItems);
 }
