@@ -61,3 +61,19 @@ export type HealthRecord = {
 };
 
 export type HealthRecords = HealthRecord[];
+
+export type Prescription = {
+  id: string;
+  patientName: string;
+  doctorName: string;
+  dateIssued: string;
+  medications: Medication[];
+  instructions?: string;
+};
+
+export type Medication = {
+  name: string;
+  dosage: string;
+  frequency: string;
+  duration: string;
+};

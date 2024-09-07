@@ -29,7 +29,7 @@ const user: UserData[] = [
         title: 'Blood Test',
         date: '2024-09-01',
         time: '08:00 AM',
-        link: ''
+        link: '',
       },
     ],
   },
