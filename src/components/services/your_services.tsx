@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import { type ServiceItems } from '@/types/basic';
-import Spinner from '@/components/common/spinner';
+import Loading from '@/app/loading';
 import { fetcher } from 'utils/fetcher';
 
 const App = () => {
@@ -29,7 +29,7 @@ const App = () => {
   }, []);
 
   if (loading) {
-    return <Spinner />;
+    return <Loading />;
   }
 
   return (

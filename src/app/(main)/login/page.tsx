@@ -30,9 +30,6 @@ export default function App() {
               Continue
             </button>
           </div>
-          <div className='mt-auto'>
-            <hr className='border-t border-gray-400' />
-          </div>
         </div>
       </div>
     </div>

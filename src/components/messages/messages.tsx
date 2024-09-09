@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { type Messages } from '@/types/basic';
-import Spinner from '@/components/common/spinner';
+import Loading from '@/app/loading';
 import { fetcher } from 'utils/fetcher';
 
 const MessagesComponent = () => {
@@ -26,7 +26,7 @@ const MessagesComponent = () => {
   }, []);
 
   if (loading) {
-    return <Spinner />;
+    return <Loading />;
   }
 
   return (

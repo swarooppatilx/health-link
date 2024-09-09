@@ -3,10 +3,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileMedical } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
-import BackButton from '@/components/common/back';
 import { useEffect, useState } from 'react';
 import { type Appointments, type Appointment } from '@/types/basic';
-import Spinner from '@/components/common/spinner';
+import Loading from '@/app/loading';
 import { fetcher } from 'utils/fetcher';
 
 const MyAppointments = () => {
@@ -37,7 +36,7 @@ const MyAppointments = () => {
   }, []);
 
   if (loading) {
-    return <Spinner />;
+    return <Loading />;
   }
 
   const renderAppointmentCard = (appointment: Appointment) => {
@@ -55,8 +54,6 @@ const MyAppointments = () => {
 
   return (
     <div className='mx-auto flex flex-col bg-gray-100'>
-      <BackButton />
-
       {/* Main Content */}
       <div className='flex-grow p-4'>
         <h1 className='mb-4 text-2xl font-bold'>Your Appointments</h1>

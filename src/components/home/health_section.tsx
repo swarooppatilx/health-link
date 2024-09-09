@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import { type HealthItems } from '@/types/basic';
-import Spinner from '@/components/common/spinner';
+import Loading from '@/app/loading';
 import { fetcher } from 'utils/fetcher';
 
 const HealthSection = () => {
@@ -28,7 +28,7 @@ const HealthSection = () => {
   }, []);
 
   if (loading) {
-    return <Spinner />;
+    return <Loading />;
   }
 
   return (
@@ -40,7 +40,7 @@ const HealthSection = () => {
         </Link>
       </div>
       <div className='rounded-lg bg-white shadow-md'>
-        {data.slice(0, 3).map((item, index) => (
+        {data.slice(0, 2).map((item, index) => (
           <div key={index}>
             {item.hasLink ? (
               <Link href={item.link ?? '#'}>
