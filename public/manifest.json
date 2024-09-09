@@ -1,25 +1,29 @@
 {
-    "lang": "en-us",
-    "name": "Health Link",
-    "short_name": "Health Link",
-    "description": "Your one stop solution for hospital appointments, health records, and more.",
-    "start_url": "/",
-    "background_color": "#ffffff",
-    "theme_color": "#000000",
-    "orientation": "portrait",
-    "display": "standalone",
+  "lang": "en-us",
+  "name": "Health Link",
+  "short_name": "Health Link",
+  "description": "Your one-stop solution for hospital appointments, health records, and more.",
+  "start_url": "/",
+  "background_color": "#005eb8",
+  "theme_color": "#005eb8",
+  "orientation": "portrait",
+  "display": "standalone",
 
-    "icons": [
-      {
-        "src": "/icon-black.png",
-        "sizes": "192x192",
-        "type": "image/png"
-      },
-      {
- 	"src":"/icon-black.png",
-	"sizes":"512x512",
-	"type":"image/png"
-      }
-    ]
-  }
-  
+  "icons": [
+    {
+      "src": "/icon-black.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-black.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    }
+  ]
+}

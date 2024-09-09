@@ -8,7 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 const Footer = () => (
-  <footer className='fixed bottom-0 left-1/2 flex w-full max-w-md -translate-x-1/2 transform items-center justify-center bg-nhs-blue py-3 shadow-inner'>
+  <footer className='fixed bottom-0 flex w-full max-w-md transform items-center justify-center bg-nhs-blue py-3 shadow-inner'>
     <div className='flex items-center justify-around gap-x-8'>
       {/* Home Link */}
       <Link href='/home' className='group flex flex-col items-center'>
