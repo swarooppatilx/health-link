@@ -2,13 +2,12 @@
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileMedical } from '@fortawesome/free-solid-svg-icons';
-import BackButton from '@/components/common/back';
 import { useEffect, useState } from 'react';
 import {
   type Prescription,
   type Prescription as PrescriptionType,
 } from '@/types/basic';
-import Spinner from '@/components/common/spinner';
+import Loading from '@/app/loading';
 import { fetcher } from 'utils/fetcher';
 
 const MyPrescriptions = () => {
@@ -39,7 +38,7 @@ const MyPrescriptions = () => {
   }, []);
 
   if (loading) {
-    return <Spinner />;
+    return <Loading />;
   }
 
   const renderPrescriptionCard = (prescription: PrescriptionType) => {
@@ -66,8 +65,6 @@ const MyPrescriptions = () => {
 
   return (
     <div className='mx-auto flex flex-col bg-gray-100'>
-      <BackButton />
-
       {/* Main Content */}
       <div className='flex-grow p-4'>
         <h1 className='mb-4 text-2xl font-bold'>Your Prescriptions</h1>

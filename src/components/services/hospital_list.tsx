@@ -5,10 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import { type HospitalItems } from '@/types/basic';
-import Spinner from '@/components/common/spinner';
+import Loading from '@/app/loading';
 import SearchBar from '@/components/common/searchbar';
 import { fetcher } from 'utils/fetcher';
-import BackButton from '@/components/common/back';
 
 const App = () => {
   const [data, setData] = useState<HospitalItems>([]);
@@ -36,12 +35,11 @@ const App = () => {
   );
 
   if (loading) {
-    return <Spinner />;
+    return <Loading />;
   }
 
   return (
     <>
-      <BackButton />
       <div className='mb-6 p-2'>
         <div className='mb-6 rounded-lg bg-white p-4 shadow-sm'>
           <div className='flex flex-col justify-center'>

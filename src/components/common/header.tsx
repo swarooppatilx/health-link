@@ -1,20 +1,36 @@
 import Link from 'next/link';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuestionCircle, faUser } from '@fortawesome/free-solid-svg-icons';
+import BackButton from '@/components/common/back';
 
 const Header = () => (
-  <div className='flex justify-end bg-white p-4'>
-    <div className='flex space-x-2'>
-      <FontAwesomeIcon
-        icon={faQuestionCircle}
-        className='me-2 h-6 w-6 text-gray-500'
-      />
-      <Link href='/login'>
-        <FontAwesomeIcon icon={faUser} className='h-6 w-6 text-gray-500' />
+  <header className='flex items-center justify-between bg-white py-2 pr-4 shadow-md'>
+    {/* Logo or App Name - can be added here if needed */}
+    <div className='flex items-start'>
+      <BackButton />
+    </div>
+
+    <div className='flex items-center space-x-4'>
+      {/* Help Icon */}
+      <button
+        aria-label='Help'
+        className='transition-colors duration-200 hover:text-nhs-blue'
+      >
+        <FontAwesomeIcon
+          icon={faQuestionCircle}
+          className='h-5 w-5 text-gray-600'
+        />
+      </button>
+
+      {/* User/Login Icon */}
+      <Link href='/login' aria-label='User Login'>
+        <FontAwesomeIcon
+          icon={faUser}
+          className='h-5 w-5 text-gray-600 transition-colors duration-200 hover:text-nhs-blue'
+        />
       </Link>
     </div>
-  </div>
+  </header>
 );
 
 export default Header;
