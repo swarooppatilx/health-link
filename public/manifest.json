@@ -1,0 +1,25 @@
+{
+    "lang": "en-us",
+    "name": "Health Link",
+    "short_name": "Health Link",
+    "description": "Your one stop solution for hospital appointments, health records, and more.",
+    "start_url": "/",
+    "background_color": "#ffffff",
+    "theme_color": "#000000",
+    "orientation": "portrait",
+    "display": "standalone",
+
+    "icons": [
+      {
+        "src": "/nhs-logo.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+ 	"src":"/nhs-logo.png",
+	"sizes":"512x512",
+	"type":"image/png"
+      }
+    ]
+  }
+  
