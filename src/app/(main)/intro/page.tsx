@@ -11,8 +11,8 @@ export default function NHSIntro() {
       <div className='text-center'>
         <div className=''>
           <Image
-            src='/nhs-logo.png' // Replace with your actual NHS logo path
-            alt='NHS Logo'
+            src='/icon.png' // Replace with your actual NHS logo path
+            alt='Logo'
             height={280}
             width={280}
             className='mx-auto mt-28'
