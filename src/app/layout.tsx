@@ -1,7 +1,7 @@
 import '@/styles/globals.css';
 
 import { GeistSans } from 'geist/font/sans';
-import { type Metadata } from 'next';
+import { type Metadata, type Viewport } from 'next';
 import { TRPCReactProvider } from '@/trpc/react';
 
 export const metadata: Metadata = {
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   icons: [
     { rel: 'icon', url: '/favicon.ico' },
     { rel: 'apple-touch-icon', url: '/icon.png', sizes: '180x180' },
-    { rel: 'apple-touch-stratup-image', url: '/icon.png', sizes: '180x180' },
+    { rel: 'apple-touch-startup-image', url: '/icon.png', sizes: '180x180' },
   ],
   authors: [{ name: 'Swaroop Patil', url: 'https://swarooppatilx.github.io' }],
   keywords:
@@ -46,12 +46,13 @@ export const metadata: Metadata = {
       },
     ],
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-  },
+};
+
+export const generateViewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({
@@ -60,7 +61,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
-      <div className="max-w-md md:m-auto">
+        <div className="max-w-md md:m-auto">
           <TRPCReactProvider>{children}</TRPCReactProvider>
         </div>
       </body>
