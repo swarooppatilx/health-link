@@ -1,7 +1,11 @@
+'use client';
+
+import useRegisterServiceWorker from '@/app/hooks/useRegisterServiceWorker';
 import Image from 'next/image';
 import Link from 'next/link';
 
 export default function NHSIntro() {
+  useRegisterServiceWorker();
   return (
     <div className='flex h-screen items-center justify-center bg-nhs-blue'>
       <div className='text-center'>
