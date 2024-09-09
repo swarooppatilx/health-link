@@ -1,7 +1,9 @@
-'use server';
+'use client';
 
 import { permanentRedirect } from 'next/navigation';
+import useRegisterServiceWorker from './hooks/useRegisterServiceWorker';
 
-export default async function intro() {
+export default function Intro() {
+  useRegisterServiceWorker();
   permanentRedirect('/intro');
 }

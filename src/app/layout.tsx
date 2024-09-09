@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: 'Health Link',
   description:
     'Your one stop solution for hospital appointments, health records, and more',
+  manifest: '/manifest.json',
   icons: [{ rel: 'icon', url: '/favicon.ico' }],
   authors: [{ name: 'Swaroop Patil', url: 'https://swarooppatilx.github.io' }],
   keywords:
