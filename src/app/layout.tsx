@@ -11,7 +11,8 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
   icons: [
     { rel: 'icon', url: '/favicon.ico' },
-    { rel: 'apple-touch-icon', url: '/icon-.png', sizes: '180x180' },
+    { rel: 'apple-touch-icon', url: '/icon.png', sizes: '180x180' },
+    { rel: 'apple-touch-stratup-image', url: '/icon.png', sizes: '180x180' },
   ],
   authors: [{ name: 'Swaroop Patil', url: 'https://swarooppatilx.github.io' }],
   keywords:
