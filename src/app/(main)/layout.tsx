@@ -10,14 +10,12 @@ interface LayoutProps {
 }
 
 export default function Layout({ children }: LayoutProps) {
-  const pathname = usePathname(); // Get the current route
+  const pathname = usePathname();
 
-  // List of routes that should not use the layout
   const noLayoutRoutes = ['/login', '/intro'];
 
-  // Check if the current route should not use the layout
   if (noLayoutRoutes.includes(pathname)) {
-    return <>{children}</>; // Render only the children without the layout
+    return <>{children}</>;
   }
 
   return (
