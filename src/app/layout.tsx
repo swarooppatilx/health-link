@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   icons: [
     { rel: 'icon', url: '/favicon.ico' },
     { rel: 'apple-touch-icon', url: '/icon.png', sizes: '180x180' },
-    { rel: 'apple-touch-stratup-image', url: '/icon.png', sizes: '180x180' },
+    { rel: 'apple-touch-startup-image', url: '/icon.png', sizes: '180x180' },
   ],
   authors: [{ name: 'Swaroop Patil', url: 'https://swarooppatilx.github.io' }],
   keywords:
@@ -45,12 +45,6 @@ export const metadata: Metadata = {
         alt: 'Health Link Twitter Image',
       },
     ],
-  },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
   },
 };
 
