@@ -6,22 +6,10 @@ export type UserData = {
   health_records: HealthRecords;
 };
 
-export type HealthItem = {
+export type ListItem = {
   title: string;
   link?: string;
-  hasLink: boolean;
 };
-
-export type HealthItems = HealthItem[];
-
-export type ServiceItem = {
-  title: string;
-  description?: string;
-  link?: string;
-  hasLink: boolean;
-};
-
-export type ServiceItems = ServiceItem[];
 
 export type Message = {
   title: string;

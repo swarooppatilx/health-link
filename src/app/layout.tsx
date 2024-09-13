@@ -58,9 +58,9 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${GeistSans.variable}`}>
+    <html lang='en' className={`${GeistSans.variable}`}>
       <body>
-      <div className="max-w-md md:m-auto">
+        <div className='max-w-md md:m-auto'>
           <TRPCReactProvider>{children}</TRPCReactProvider>
         </div>
       </body>
