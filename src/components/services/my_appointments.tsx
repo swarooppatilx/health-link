@@ -3,40 +3,27 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileMedical } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import useSWR from 'swr';
+import { useState } from 'react';
 import { type Appointments, type Appointment } from '@/types/basic';
 import Loading from '@/app/loading';
-import { fetcher } from 'utils/fetcher';
+import { fetcher } from '@/lib/fetcher';
 
 const MyAppointments = () => {
-  const [data, setData] = useState<Appointments>([]);
-  const [loading, setLoading] = useState(true);
+  const { data, isLoading } = useSWR<Appointments>(
+    '/api/services/appointments',
+    fetcher,
+  );
+
   const [showAll, setShowAll] = useState(false);
   const [selectedAppointment, setSelectedAppointment] =
     useState<Appointment | null>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await fetcher<Appointments>(
-          '/api/services/appointments',
-        );
-        setData(result);
-        if (result.length > 0) {
-          setSelectedAppointment(result[0] ?? null);
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  if (isLoading) return <Loading />;
 
-    void fetchData();
-  }, []);
-
-  if (loading) {
-    return <Loading />;
+  const appointments = data ?? [];
+  if (!selectedAppointment && appointments.length > 0) {
+    setSelectedAppointment(appointments[0] ?? null);
   }
 
   const renderAppointmentCard = (appointment: Appointment) => {
@@ -53,18 +40,18 @@ const MyAppointments = () => {
   };
 
   return (
-    <div className='mx-auto flex flex-col bg-gray-100'>
-      {/* Main Content */}
+    <div className='mx-auto mb-4 flex flex-col bg-gray-100 pb-20'>
       <div className='flex-grow p-4'>
         <h1 className='mb-4 text-2xl font-bold'>Your Appointments</h1>
 
         {showAll ? (
           <>
-            {data.length > 0 ? (
-              data.map((appointment) => (
+            {appointments.length > 0 ? (
+              appointments.map((appointment) => (
                 <div
                   key={appointment.id}
                   onClick={() => setSelectedAppointment(appointment)}
+                  className='cursor-pointer'
                 >
                   {appointment.hospital.hasLink ? (
                     <Link href={appointment.hospital.link ?? '#'}>

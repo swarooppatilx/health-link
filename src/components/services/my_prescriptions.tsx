@@ -1,47 +1,34 @@
 'use client';
 
+import useSWR from 'swr';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileMedical } from '@fortawesome/free-solid-svg-icons';
-import { useEffect, useState } from 'react';
-import {
-  type Prescription,
-  type Prescription as PrescriptionType,
-} from '@/types/basic';
+import { useState, useEffect } from 'react';
+import { type Prescription } from '@/types/basic';
 import Loading from '@/app/loading';
-import { fetcher } from 'utils/fetcher';
+import { fetcher } from '@/lib/fetcher';
 
 const MyPrescriptions = () => {
-  const [data, setData] = useState<Prescription[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { data, isLoading } = useSWR<Prescription[]>(
+    '/api/services/prescriptions',
+    fetcher,
+  );
+
   const [showAll, setShowAll] = useState(false);
   const [selectedPrescription, setSelectedPrescription] =
-    useState<PrescriptionType | null>(null);
+    useState<Prescription | null>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await fetcher<Prescription[]>(
-          '/api/services/prescriptions',
-        );
-        setData(result);
-        if (result.length > 0) {
-          setSelectedPrescription(result[0] ?? null);
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    if (!selectedPrescription && data && data.length > 0) {
+      setSelectedPrescription(data[0] ?? null);
+    }
+  }, [data, selectedPrescription]);
 
-    void fetchData();
-  }, []);
+  if (isLoading) return <Loading />;
 
-  if (loading) {
-    return <Loading />;
-  }
+  const prescriptions = data ?? [];
 
-  const renderPrescriptionCard = (prescription: PrescriptionType) => {
+  const renderPrescriptionCard = (prescription: Prescription) => {
     const { patientName, doctorName, dateIssued, medications, instructions } =
       prescription;
 
@@ -64,50 +51,42 @@ const MyPrescriptions = () => {
   };
 
   return (
-    <div className='mx-auto flex flex-col bg-gray-100'>
-      {/* Main Content */}
+    <div className='mx-auto mb-4 flex flex-col bg-gray-100 pb-20'>
       <div className='flex-grow p-4'>
         <h1 className='mb-4 text-2xl font-bold'>Your Prescriptions</h1>
 
         {showAll ? (
+          prescriptions.length > 0 ? (
+            prescriptions.map((prescription) => (
+              <div
+                key={prescription.id}
+                onClick={() => setSelectedPrescription(prescription)}
+                className='cursor-pointer'
+              >
+                {renderPrescriptionCard(prescription)}
+              </div>
+            ))
+          ) : (
+            <p>No prescriptions available.</p>
+          )
+        ) : selectedPrescription ? (
           <>
-            {data.length > 0 ? (
-              data.map((prescription) => (
-                <div
-                  key={prescription.id}
-                  onClick={() => setSelectedPrescription(prescription)}
-                >
-                  <div className='cursor-pointer'>
-                    {renderPrescriptionCard(prescription)}
-                  </div>
-                </div>
-              ))
-            ) : (
-              <p>No prescriptions available.</p>
-            )}
+            {renderPrescriptionCard(selectedPrescription)}
+            <div
+              className='mb-4 flex cursor-pointer items-center rounded-lg bg-white p-4'
+              onClick={() => setShowAll(true)}
+            >
+              <FontAwesomeIcon
+                icon={faFileMedical}
+                className='mr-2 h-5 w-5 text-blue-600'
+              />
+              <span className='font-semibold text-blue-600'>
+                View All Prescriptions
+              </span>
+            </div>
           </>
         ) : (
-          <>
-            {selectedPrescription ? (
-              <>
-                {renderPrescriptionCard(selectedPrescription)}
-                <div
-                  className='mb-4 flex cursor-pointer items-center rounded-lg bg-white p-4'
-                  onClick={() => setShowAll(true)}
-                >
-                  <FontAwesomeIcon
-                    icon={faFileMedical}
-                    className='mr-2 h-5 w-5 text-blue-600'
-                  />
-                  <span className='font-semibold text-blue-600'>
-                    View All Prescriptions
-                  </span>
-                </div>
-              </>
-            ) : (
-              <p>No prescriptions available.</p>
-            )}
-          </>
+          <p>No prescriptions available.</p>
         )}
       </div>
     </div>

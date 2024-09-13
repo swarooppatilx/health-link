@@ -3,40 +3,29 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileMedical } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import useSWR from 'swr';
+import { useState } from 'react';
 import { type HealthRecords, type HealthRecord } from '@/types/basic';
 import Loading from '@/app/loading';
-import { fetcher } from 'utils/fetcher';
+import { fetcher } from '@/lib/fetcher';
 
 const MyHealthRecords = () => {
-  const [data, setData] = useState<HealthRecords>([]);
-  const [loading, setLoading] = useState(true);
+  const { data, isLoading } = useSWR<HealthRecords>(
+    '/api/health/records',
+    fetcher,
+  );
+
   const [showAll, setShowAll] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState<HealthRecord | null>(
     null,
   );
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await fetcher<HealthRecords>('/api/health/records');
-        setData(result);
-        if (result.length > 0) {
-          setSelectedRecord(result[0] ?? null);
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    void fetchData();
-  }, []);
-
-  if (loading) {
-    return <Loading />;
+  const records = data ?? [];
+  if (!selectedRecord && records.length > 0) {
+    setSelectedRecord(records[0] ?? null);
   }
+
+  if (isLoading) return <Loading />;
 
   const renderRecordCard = (record: HealthRecord) => {
     const { title, date, time, link } = record;
@@ -53,16 +42,19 @@ const MyHealthRecords = () => {
   };
 
   return (
-    <div className='mx-auto flex flex-col bg-gray-100'>
-      {/* Main Content */}
+    <div className='mx-auto mb-4 flex flex-col bg-gray-100 pb-20'>
       <div className='flex-grow p-4'>
         <h1 className='mb-4 text-2xl font-bold'>Your Health Records</h1>
 
         {showAll ? (
           <>
-            {data.length > 0 ? (
-              data.map((record) => (
-                <div key={record.id} onClick={() => setSelectedRecord(record)}>
+            {records.length > 0 ? (
+              records.map((record) => (
+                <div
+                  key={record.id}
+                  onClick={() => setSelectedRecord(record)}
+                  className='cursor-pointer'
+                >
                   {renderRecordCard(record)}
                 </div>
               ))
