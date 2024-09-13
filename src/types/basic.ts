@@ -1,9 +1,8 @@
 export type UserData = {
   id: string;
   name: string;
+  abha: string;
   dob: string;
-  appointments: Appointments;
-  health_records: HealthRecords;
 };
 
 export type ListItem = {

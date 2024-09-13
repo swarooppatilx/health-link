@@ -1,34 +1,17 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import useSWR from 'swr';
 import { type ListItem } from '@/types/basic';
 import List from '@/components/common/list';
 import Loading from '@/app/loading';
-import { fetcher } from 'utils/fetcher';
+import { fetcher } from '@/lib/fetcher';
 
 const App = () => {
-  const [data, setData] = useState<ListItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { data, isLoading } = useSWR<ListItem[]>('/api/health', fetcher);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await fetcher<ListItem[]>('/api/health');
-        setData(result);
-        console.log(result);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  if (isLoading) return <Loading />;
 
-    void fetchData();
-  }, []);
-
-  if (loading) {
-    return <Loading />;
-  }
+  if (!data) return <div>No data available</div>;
 
   return (
     <List

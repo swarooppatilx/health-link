@@ -1,6 +1,6 @@
 'use client';
 
-import useRegisterServiceWorker from '@/app/hooks/useRegisterServiceWorker';
+import useRegisterServiceWorker from '@/hooks/useRegisterServiceWorker';
 import Image from 'next/image';
 import Link from 'next/link';
 

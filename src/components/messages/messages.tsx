@@ -1,31 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import useSWR from 'swr';
 import { type Messages } from '@/types/basic';
 import Loading from '@/app/loading';
-import { fetcher } from 'utils/fetcher';
+import { fetcher } from '@/lib/fetcher';
 
 const MessagesComponent = () => {
-  const [data, setData] = useState<Messages>([]);
-  const [loading, setLoading] = useState(true);
+  const { data, isLoading } = useSWR<Messages>('/api/messages', fetcher);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await fetcher<Messages>('/api/messages');
-        setData(result);
-        console.log(result);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    void fetchData();
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return <Loading />;
   }
 
@@ -38,7 +21,7 @@ const MessagesComponent = () => {
         </div>
       </div>
       <div className='space-y-4'>
-        {data.map((message, index) => (
+        {data?.map((message, index) => (
           <div key={index} className='rounded-lg bg-white p-4 shadow'>
             <h3 className='text-lg font-semibold text-nhs-blue'>
               {message.title}

@@ -2,47 +2,27 @@
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarAlt, faClock } from '@fortawesome/free-solid-svg-icons';
-import { useEffect, useState } from 'react';
+import useSWR from 'swr';
 import { type HospitalItem } from '@/types/basic';
 import Loading from '@/app/loading';
-import { fetcher } from 'utils/fetcher';
 import Modal from '@/components/common/modal';
+import { fetcher } from '@/lib/fetcher';
+import { useState } from 'react';
 
 export default function Page({ id }: { id: string }) {
-  const [data, setData] = useState<HospitalItem | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [isModalOpen, setModalOpen] = useState(false); // State to manage modal visibility
+  const { data, isLoading } = useSWR<HospitalItem>(
+    `/api/health/hospitals?id=${id}`,
+    fetcher,
+  );
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await fetcher<HospitalItem>(
-          `/api/health/hospitals?id=${id}`,
-        );
-        setData(result);
-        console.log(result);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const [isModalOpen, setModalOpen] = useState(false);
 
-    void fetchData();
-  }, [id]);
-
-  const handleBookAppointment = () => {
-    // Logic to handle booking
-    setModalOpen(true); // Show the modal
-  };
-
-  if (loading) {
+  if (isLoading) {
     return <Loading />;
   }
 
   return (
     <div className='mx-auto flex flex-col bg-gray-100'>
-      {/* Main Content */}
       <div className='flex-grow p-4'>
         <h1 className='mb-4 text-2xl font-bold'>Book an Appointment</h1>
 
@@ -51,7 +31,7 @@ export default function Page({ id }: { id: string }) {
           <p className='mb-2 text-sm text-gray-700'>{data?.description}</p>
           <p className='mb-2 text-sm'>
             <strong className='text-nhs-blue'>Available Services:</strong>
-            <br></br>
+            <br />
             {data?.availableServices?.join(', ')}
           </p>
           <p className='text-sm'>
@@ -104,13 +84,12 @@ export default function Page({ id }: { id: string }) {
 
         <button
           className='w-full rounded-lg bg-green-600 py-3 font-semibold text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500'
-          onClick={handleBookAppointment}
+          onClick={() => setModalOpen(true)}
         >
           Confirm Appointment
         </button>
       </div>
 
-      {/* Modal */}
       <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)} />
     </div>
   );
