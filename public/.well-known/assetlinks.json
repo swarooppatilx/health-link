@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "app.vercel.health_link_v1.twa",
+        "sha256_cert_fingerprints": ["E8:5B:E5:40:4A:F9:F9:FF:61:04:95:CB:B7:91:CA:E9:8E:04:15:06:19:84:62:E9:A3:2E:B7:2B:09:11:1E:B4"]
+      }
+    }]
