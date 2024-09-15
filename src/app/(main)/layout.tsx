@@ -12,7 +12,7 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   const pathname = usePathname();
 
-  const noLayoutRoutes = ['/login', '/intro'];
+  const noLayoutRoutes = ['/login', '/intro', '/dashboard'];
 
   if (noLayoutRoutes.includes(pathname)) {
     return <>{children}</>;
