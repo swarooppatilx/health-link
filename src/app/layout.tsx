@@ -54,9 +54,7 @@ export default function RootLayout({
   return (
     <html lang='en' className={`${GeistSans.variable}`}>
       <body>
-        <div className='max-w-md md:m-auto'>
-          <TRPCReactProvider>{children}</TRPCReactProvider>
-        </div>
+        <TRPCReactProvider>{children}</TRPCReactProvider>
       </body>
     </html>
   );
