@@ -1,12 +1,18 @@
 import { NextResponse } from 'next/server';
-import { type UserData } from '@/types/basic';
+import { currentUser, auth } from '@clerk/nextjs/server';
 
-const user: UserData = {
-  id: '1',
-  name: 'John Doe',
-  abha: '12345678',
-  dob: '1990-01-01',
-};
 export async function GET() {
-  return NextResponse.json(user);
+  // Get the userId from auth() -- if null, the user is not signed in
+  const { userId } = await auth();
+
+  if (!userId) {
+    return new NextResponse('Unauthorized', { status: 401 });
+  }
+
+  // Get the Backend API User object when you need access to the user's information
+  const user = await currentUser();
+
+  // Perform your Route Handler's logic with the returned user object
+
+  return NextResponse.json({ user: user }, { status: 200 });
 }

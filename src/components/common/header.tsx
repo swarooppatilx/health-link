@@ -23,7 +23,7 @@ const Header = () => (
       </button>
 
       {/* User/Login Icon */}
-      <Link href='/login' aria-label='User Login'>
+      <Link href='/profile' aria-label='User Profile'>
         <FontAwesomeIcon
           icon={faUser}
           className='h-5 w-5 text-gray-600 transition-colors duration-200 hover:text-nhs-blue'
