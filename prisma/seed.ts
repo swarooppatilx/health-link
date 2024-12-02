@@ -9,8 +9,6 @@ async function createDummyData() {
       description: 'A leading healthcare provider offering top-notch services.',
       availableServices: ['Emergency', 'Outpatient', 'Surgery', 'Laboratory'],
       availableBeds: 100,
-      link: 'https://www.citygeneral.com',
-      hasLink: true,
     },
   });
 
@@ -26,8 +24,6 @@ async function createDummyData() {
         'Maternity',
       ],
       availableBeds: 50,
-      link: 'https://www.greenwoodmedical.com',
-      hasLink: true,
     },
   });
 
@@ -59,7 +55,6 @@ async function createDummyData() {
       title: 'Routine Checkup',
       date: new Date('2024-11-25'),
       time: '11:00 AM',
-      link: 'https://www.healthrecords.com/record/12345',
     },
   });
 
@@ -69,7 +64,6 @@ async function createDummyData() {
       title: 'Cardiac Assessment',
       date: new Date('2024-11-20'),
       time: '09:30 AM',
-      link: 'https://www.healthrecords.com/record/67890',
     },
   });
 

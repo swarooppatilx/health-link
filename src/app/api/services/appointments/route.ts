@@ -1,6 +1,6 @@
 import prisma from '@/lib/prisma';
 import { NextResponse } from 'next/server';
-import { auth } from '@clerk/nextjs/server'
+import { auth } from '@clerk/nextjs/server';
 
 export async function GET() {
   try {
@@ -12,7 +12,9 @@ export async function GET() {
     });
 
     // Filter appointments by userId
-    const userAppointments = appointments.filter(appointment => appointment.userId === userId);
+    const userAppointments = appointments.filter(
+      (appointment) => appointment.userId === userId,
+    );
 
     return NextResponse.json(userAppointments); // Return filtered appointments
   } catch (error) {
@@ -23,7 +25,6 @@ export async function GET() {
     );
   }
 }
-
 
 export async function POST(request: Request) {
   const { userId, hospitalId, date, time, estimatedTime } =
