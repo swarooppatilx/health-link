@@ -5,12 +5,12 @@ import { faFileMedical } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import useSWR from 'swr';
 import { useState } from 'react';
-import { type HealthRecords, type HealthRecord } from '@/types/basic';
+import { HealthRecord } from '@prisma/client';
 import Loading from '@/app/loading';
 import { fetcher } from '@/lib/fetcher';
 
 const MyHealthRecords = () => {
-  const { data, isLoading } = useSWR<HealthRecords>(
+  const { data, isLoading } = useSWR<HealthRecord[]>(
     '/api/health/records',
     fetcher,
   );
@@ -34,7 +34,7 @@ const MyHealthRecords = () => {
       <Link href={link ?? '#'}>
         <div className='mb-4 rounded-lg bg-white p-4'>
           <h2 className='mb-1 font-bold'>{title}</h2>
-          <p className='mb-1 text-sm'>Date: {date}</p>
+          <p className='mb-1 text-sm'>Date: {date.toString()}</p>
           <p className='mb-1 text-sm'>Time: {time}</p>
         </div>
       </Link>

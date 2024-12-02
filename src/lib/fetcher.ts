@@ -5,6 +5,6 @@ export const fetcher = async <T>(url: string): Promise<T> => {
     throw new Error(`Error: ${response.status}`);
   }
 
-  const data: unknown = await response.json();
+  const data = await response.json();
   return data as T;
 };

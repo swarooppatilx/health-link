@@ -3,14 +3,14 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarAlt, faClock } from '@fortawesome/free-solid-svg-icons';
 import useSWR from 'swr';
-import { type HospitalItem } from '@/types/basic';
+import { Hospital } from '@prisma/client';
 import Loading from '@/app/loading';
 import Modal from '@/components/common/modal';
 import { fetcher } from '@/lib/fetcher';
 import { useState } from 'react';
 
 export default function Page({ id }: { id: string }) {
-  const { data, isLoading } = useSWR<HospitalItem>(
+  const { data, isLoading } = useSWR<Hospital>(
     `/api/health/hospitals?id=${id}`,
     fetcher,
   );

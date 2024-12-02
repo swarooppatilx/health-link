@@ -5,13 +5,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import useSWR from 'swr';
 import { useState } from 'react';
-import { type HospitalItems } from '@/types/basic';
+import { Hospital } from '@prisma/client';
 import Loading from '@/app/loading';
 import SearchBar from '@/components/common/searchbar';
 import { fetcher } from '@/lib/fetcher';
 
 const App = () => {
-  const { data, isLoading } = useSWR<HospitalItems>(
+  const { data, isLoading } = useSWR<Hospital[]>(
     '/api/health/hospitals',
     fetcher,
   );

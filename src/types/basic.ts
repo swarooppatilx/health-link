@@ -1,9 +1,4 @@
-export type UserData = {
-  id: string;
-  name: string;
-  abha: string;
-  dob: string;
-};
+// types.ts
 
 export type ListItem = {
   title: string;
@@ -11,56 +6,66 @@ export type ListItem = {
 };
 
 export type Message = {
+  id: string;
+  userId: string;
   title: string;
-  items: string[];
-};
+  content: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
-export type Messages = Message[];
-
-export type HospitalItem = {
+export type Hospital = {
   id: string;
   name: string;
-  description?: string;
-  availableServices?: string[];
-  availableBeds?: number;
-  link?: string;
+  description: string | null;
+  availableServices: string[];
+  availableBeds: number | null;
+  link: string | null;
   hasLink: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 };
-
-export type HospitalItems = HospitalItem[];
 
 export type Appointment = {
   id: string;
-  date: string;
+  userId: string;
+  date: Date;
   time: string;
-  estimated_time: string;
-  hospital: HospitalItem;
+  estimatedTime: string;
+  hospitalId: string;
+  createdAt: Date;
+  updatedAt: Date;
 };
-
-export type Appointments = Appointment[];
 
 export type HealthRecord = {
   id: string;
+  userId: string;
   title: string;
-  date: string;
+  date: Date;
   time: string;
   link: string;
+  createdAt: Date;
+  updatedAt: Date;
 };
-
-export type HealthRecords = HealthRecord[];
 
 export type Prescription = {
   id: string;
+  userId: string;
   patientName: string;
   doctorName: string;
-  dateIssued: string;
+  dateIssued: Date;
   medications: Medication[];
-  instructions?: string;
+  instructions: string | null;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type Medication = {
+  id: string;
   name: string;
   dosage: string;
   frequency: string;
   duration: string;
+  prescriptionId: string | null;
+  prescription: Prescription | null;
 };

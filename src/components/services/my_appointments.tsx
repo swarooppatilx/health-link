@@ -2,15 +2,14 @@
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileMedical } from '@fortawesome/free-solid-svg-icons';
-import Link from 'next/link';
 import useSWR from 'swr';
-import { useState } from 'react';
-import { type Appointments, type Appointment } from '@/types/basic';
+import { useState, useEffect } from 'react';
+import { Appointment } from '@prisma/client';
 import Loading from '@/app/loading';
 import { fetcher } from '@/lib/fetcher';
 
 const MyAppointments = () => {
-  const { data, isLoading } = useSWR<Appointments>(
+  const { data, isLoading } = useSWR<Appointment[]>(
     '/api/services/appointments',
     fetcher,
   );
@@ -19,22 +18,28 @@ const MyAppointments = () => {
   const [selectedAppointment, setSelectedAppointment] =
     useState<Appointment | null>(null);
 
+  // Update selected appointment after data is fetched
+  useEffect(() => {
+    if (data && data.length > 0 && !selectedAppointment) {
+      setSelectedAppointment(data[0]);
+    }
+  }, [data, selectedAppointment]);
+
   if (isLoading) return <Loading />;
 
   const appointments = data ?? [];
-  if (!selectedAppointment && appointments.length > 0) {
-    setSelectedAppointment(appointments[0] ?? null);
-  }
 
   const renderAppointmentCard = (appointment: Appointment) => {
-    const { hospital, date, time, estimated_time } = appointment;
+    const { date, time, estimatedTime } = appointment;
+
+    const formattedDate = new Date(date).toLocaleDateString();
+    const formattedTime = new Date(time).toLocaleTimeString();
 
     return (
       <div className='mb-4 rounded-lg bg-white p-4'>
-        <h2 className='mb-1 font-bold'>{hospital.name}</h2>
-        <p className='mb-1 text-sm'>Date: {date}</p>
-        <p className='mb-1 text-sm'>Time: {time}</p>
-        <p className='mb-1 text-sm'>Estimated Time: {estimated_time}</p>
+        <p className='mb-1 text-sm'>Date: {formattedDate}</p>
+        <p className='mb-1 text-sm'>Time: {formattedTime}</p>
+        <p className='mb-1 text-sm'>Estimated Time: {estimatedTime}</p>
       </div>
     );
   };
@@ -53,13 +58,9 @@ const MyAppointments = () => {
                   onClick={() => setSelectedAppointment(appointment)}
                   className='cursor-pointer'
                 >
-                  {appointment.hospital.hasLink ? (
-                    <Link href={appointment.hospital.link ?? '#'}>
-                      {renderAppointmentCard(appointment)}
-                    </Link>
-                  ) : (
+                  {
                     renderAppointmentCard(appointment)
-                  )}
+                  }
                 </div>
               ))
             ) : (
@@ -70,13 +71,9 @@ const MyAppointments = () => {
           <>
             {selectedAppointment ? (
               <>
-                {selectedAppointment.hospital.hasLink ? (
-                  <Link href={selectedAppointment.hospital.link ?? '#'}>
-                    {renderAppointmentCard(selectedAppointment)}
-                  </Link>
-                ) : (
+                {
                   renderAppointmentCard(selectedAppointment)
-                )}
+                }
                 <div
                   className='mb-4 flex cursor-pointer items-center rounded-lg bg-white p-4'
                   onClick={() => setShowAll(true)}

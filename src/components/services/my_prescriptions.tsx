@@ -4,14 +4,14 @@ import useSWR from 'swr';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileMedical } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from 'react';
-import { type Prescription } from '@/types/basic';
+import {Prescription} from '@prisma/client';
 import Loading from '@/app/loading';
 import { fetcher } from '@/lib/fetcher';
 
 const MyPrescriptions = () => {
   const { data, isLoading } = useSWR<Prescription[]>(
     '/api/services/prescriptions',
-    fetcher,
+    fetcher
   );
 
   const [showAll, setShowAll] = useState(false);
@@ -29,23 +29,17 @@ const MyPrescriptions = () => {
   const prescriptions = data ?? [];
 
   const renderPrescriptionCard = (prescription: Prescription) => {
-    const { patientName, doctorName, dateIssued, medications, instructions } =
+    const { patientName, doctorName, dateIssued, instructions } =
       prescription;
+
+    const formattedDateIssued = new Date(dateIssued).toLocaleDateString();
 
     return (
       <div className='mb-4 rounded-lg bg-white p-4'>
         <h2 className='mb-1 font-bold'>Patient: {patientName}</h2>
         <p className='mb-1 text-sm'>Doctor: {doctorName}</p>
-        <p className='mb-1 text-sm'>Date Issued: {dateIssued}</p>
+        <p className='mb-1 text-sm'>Date Issued: {formattedDateIssued}</p>
         <p className='mb-1 text-sm'>Instructions: {instructions}</p>
-        {medications.map((med, index) => (
-          <div key={index} className='mb-2'>
-            <p className='font-semibold'>{med.name}</p>
-            <p className='text-sm'>Dosage: {med.dosage}</p>
-            <p className='text-sm'>Frequency: {med.frequency}</p>
-            <p className='text-sm'>Duration: {med.duration}</p>
-          </div>
-        ))}
       </div>
     );
   };

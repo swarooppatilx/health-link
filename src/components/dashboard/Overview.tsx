@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Activity,
@@ -31,7 +31,7 @@ const patientData = [
 ];
 
 export function Overview() {
-  const [currentDate, setCurrentDate] = React.useState(new Date());
+  const [currentDate, setCurrentDate] = useState(new Date());
 
   const daysInMonth = new Date(
     currentDate.getFullYear(),

@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Hospital {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  name              String
+  description       String?
+  availableServices String[]
+  availableBeds     Int?
+  link              String?
+  hasLink           Boolean
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  appointments      Appointment[] // Add back relation to Appointment
+}
+
+model Appointment {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String   // Clerk user ID
+  date          DateTime
+  time          String
+  estimatedTime String
+  hospitalId    String   @db.ObjectId
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  hospital      Hospital @relation(fields: [hospitalId], references: [id]) // Relation field
+}
+
+model HealthRecord {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   // Clerk user ID
+  title     String
+  date      DateTime
+  time      String
+  link      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Prescription {
+  id           String       @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String       // Clerk user ID
+  patientName  String
+  doctorName   String
+  dateIssued   DateTime
+  medications  Medication[]
+  instructions String?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+}
+
+model Medication {
+  id             String        @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  dosage         String
+  frequency      String
+  duration       String
+  Prescription   Prescription? @relation(fields: [prescriptionId], references: [id])
+  prescriptionId String?       @db.ObjectId
+}
+
+model Message {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   // Clerk user ID or another user identifier
+  title     String
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
