@@ -8,7 +8,6 @@ interface Props {
 
 const HospitalPage = ({ params }: Props) => {
   const { id } = params;
-
   return <Appointment id={id} />;
 };
 

@@ -28,13 +28,15 @@ const MyHealthRecords = () => {
   if (isLoading) return <Loading />;
 
   const renderRecordCard = (record: HealthRecord) => {
-    const { title, date, time, link } = record;
+    const { title, date, time } = record;
 
     return (
-      <Link href={link ?? '#'}>
+      <Link href={'#'}>
         <div className='mb-4 rounded-lg bg-white p-4'>
           <h2 className='mb-1 font-bold'>{title}</h2>
-          <p className='mb-1 text-sm'>Date: {date.toString()}</p>
+          <p className='mb-1 text-sm'>
+            Date: {date.toString().substring(0, 10)}
+          </p>
           <p className='mb-1 text-sm'>Time: {time}</p>
         </div>
       </Link>

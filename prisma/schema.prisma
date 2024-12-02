@@ -13,8 +13,6 @@ model Hospital {
   description       String?
   availableServices String[]
   availableBeds     Int?
-  link              String?
-  hasLink           Boolean
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
   appointments      Appointment[] // Add back relation to Appointment
@@ -29,7 +27,6 @@ model Appointment {
   hospitalId    String   @db.ObjectId
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
-
   hospital      Hospital @relation(fields: [hospitalId], references: [id]) // Relation field
 }
 
@@ -39,7 +36,6 @@ model HealthRecord {
   title     String
   date      DateTime
   time      String
-  link      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

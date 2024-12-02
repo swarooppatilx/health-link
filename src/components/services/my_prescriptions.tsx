@@ -4,14 +4,14 @@ import useSWR from 'swr';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileMedical } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from 'react';
-import {Prescription} from '@prisma/client';
+import { Prescription } from '@prisma/client';
 import Loading from '@/app/loading';
 import { fetcher } from '@/lib/fetcher';
 
 const MyPrescriptions = () => {
   const { data, isLoading } = useSWR<Prescription[]>(
     '/api/services/prescriptions',
-    fetcher
+    fetcher,
   );
 
   const [showAll, setShowAll] = useState(false);
@@ -29,8 +29,7 @@ const MyPrescriptions = () => {
   const prescriptions = data ?? [];
 
   const renderPrescriptionCard = (prescription: Prescription) => {
-    const { patientName, doctorName, dateIssued, instructions } =
-      prescription;
+    const { patientName, doctorName, dateIssued, instructions } = prescription;
 
     const formattedDateIssued = new Date(dateIssued).toLocaleDateString();
 

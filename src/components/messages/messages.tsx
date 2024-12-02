@@ -26,7 +26,9 @@ const MessagesComponent = () => {
       <div className='space-y-4'>
         {data?.map((message) => (
           <div key={message.id} className='rounded-lg bg-white p-4 shadow'>
-            <h3 className='text-lg font-semibold text-nhs-blue'>{message.title}</h3>
+            <h3 className='text-lg font-semibold text-nhs-blue'>
+              {message.title}
+            </h3>
             <p className='mt-2 text-sm text-gray-700'>{message.content}</p>
             <p className='mt-1 text-xs text-gray-500'>
               Created At: {new Date(message.createdAt).toLocaleString()}

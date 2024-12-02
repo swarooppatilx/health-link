@@ -4,19 +4,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileMedical } from '@fortawesome/free-solid-svg-icons';
 import useSWR from 'swr';
 import { useState, useEffect } from 'react';
-import { Appointment } from '@prisma/client';
+import { Appointment, Hospital } from '@prisma/client';
 import Loading from '@/app/loading';
 import { fetcher } from '@/lib/fetcher';
 
+type AppointmentWithHospital = Appointment & {
+  hospital: Hospital;
+};
+
 const MyAppointments = () => {
-  const { data, isLoading } = useSWR<Appointment[]>(
+  const { data, isLoading } = useSWR<AppointmentWithHospital[]>(
     '/api/services/appointments',
     fetcher,
   );
 
   const [showAll, setShowAll] = useState(false);
   const [selectedAppointment, setSelectedAppointment] =
-    useState<Appointment | null>(null);
+    useState<AppointmentWithHospital | null>(null);
 
   // Update selected appointment after data is fetched
   useEffect(() => {
@@ -29,16 +33,18 @@ const MyAppointments = () => {
 
   const appointments = data ?? [];
 
-  const renderAppointmentCard = (appointment: Appointment) => {
-    const { date, time, estimatedTime } = appointment;
-
-    const formattedDate = new Date(date).toLocaleDateString();
-    const formattedTime = new Date(time).toLocaleTimeString();
+  const renderAppointmentCard = (appointment: AppointmentWithHospital) => {
+    const { date, time, estimatedTime, hospital } = appointment;
 
     return (
-      <div className='mb-4 rounded-lg bg-white p-4'>
-        <p className='mb-1 text-sm'>Date: {formattedDate}</p>
-        <p className='mb-1 text-sm'>Time: {formattedTime}</p>
+      <div className='mb-4 rounded-lg bg-white p-4 shadow-md'>
+        <p className='mb-1 text-sm font-semibold'>
+          Hospital: {hospital?.name || 'N/A'}
+        </p>
+        <p className='mb-1 text-sm'>
+          Date: {new Date(date).toLocaleDateString()}
+        </p>
+        <p className='mb-1 text-sm'>Time: {time}</p>
         <p className='mb-1 text-sm'>Estimated Time: {estimatedTime}</p>
       </div>
     );
@@ -58,9 +64,7 @@ const MyAppointments = () => {
                   onClick={() => setSelectedAppointment(appointment)}
                   className='cursor-pointer'
                 >
-                  {
-                    renderAppointmentCard(appointment)
-                  }
+                  {renderAppointmentCard(appointment)}
                 </div>
               ))
             ) : (
@@ -71,9 +75,7 @@ const MyAppointments = () => {
           <>
             {selectedAppointment ? (
               <>
-                {
-                  renderAppointmentCard(selectedAppointment)
-                }
+                {renderAppointmentCard(selectedAppointment)}
                 <div
                   className='mb-4 flex cursor-pointer items-center rounded-lg bg-white p-4'
                   onClick={() => setShowAll(true)}

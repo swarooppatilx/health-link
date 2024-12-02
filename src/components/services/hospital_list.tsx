@@ -16,6 +16,7 @@ const App = () => {
     fetcher,
   );
 
+  const link = '/services/appointment/hospitals/';
   const [searchQuery, setSearchQuery] = useState('');
 
   const filteredData = (data ?? []).filter((hospital) =>
@@ -39,8 +40,8 @@ const App = () => {
         {filteredData.length > 0 ? (
           filteredData.map((item) => (
             <div key={item.id}>
-              {item.hasLink ? (
-                <Link href={item.link ?? '#'}>
+              {
+                <Link href={link.concat(item.id) ?? '#'}>
                   <div className='flex cursor-pointer items-center justify-between border-b p-4 font-bold text-nhs-blue'>
                     <span>{item.name}</span>
                     <FontAwesomeIcon
@@ -49,12 +50,7 @@ const App = () => {
                     />
                   </div>
                 </Link>
-              ) : (
-                <div className='flex items-center justify-between border-b p-4 font-bold text-nhs-blue'>
-                  <span>{item.name}</span>
-                  <FontAwesomeIcon icon={faChevronRight} className='h-6 w-6' />
-                </div>
-              )}
+              }
             </div>
           ))
         ) : (
