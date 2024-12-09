@@ -7,6 +7,6 @@ const user: UserData = {
   abha: '12345678',
   dob: '1990-01-01',
 };
-export async function GET() {
+export function GET() {
   return NextResponse.json(user);
 }

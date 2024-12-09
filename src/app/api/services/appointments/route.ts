@@ -49,6 +49,6 @@ const appointments: Appointments = [
   },
 ];
 
-export async function GET() {
+export function GET() {
   return NextResponse.json(appointments);
 }

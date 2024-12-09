@@ -22,6 +22,6 @@ const services: ListItem[] = [
   },
 ];
 
-export async function GET() {
+export function GET() {
   return NextResponse.json(services);
 }

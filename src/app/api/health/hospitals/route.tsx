@@ -77,7 +77,7 @@ const hospitalItems: HospitalItem[] = [
   },
 ];
 
-export async function GET(request: Request) {
+export function GET(request: Request) {
   const url = new URL(request.url);
   const id = url.searchParams.get('id');
 

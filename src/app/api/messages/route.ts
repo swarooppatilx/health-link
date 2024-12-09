@@ -17,7 +17,7 @@ const messagesData: Message[] = [
 ];
 
 // Define the GET request handler
-export async function GET() {
+export function GET() {
   // Return the messages data as JSON
   return NextResponse.json(messagesData);
 }

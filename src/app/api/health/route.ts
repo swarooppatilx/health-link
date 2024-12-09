@@ -20,6 +20,6 @@ const healthItems: ListItem[] = [
   },
 ];
 
-export async function GET() {
+export function GET() {
   return NextResponse.json(healthItems);
 }

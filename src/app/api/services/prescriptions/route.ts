@@ -55,6 +55,6 @@ const prescriptions: Prescription[] = [
   },
 ];
 
-export async function GET() {
+export function GET() {
   return NextResponse.json(prescriptions);
 }

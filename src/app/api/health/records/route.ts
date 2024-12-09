@@ -39,6 +39,6 @@ const healthRecords: HealthRecords = [
   },
 ];
 
-export async function GET() {
+export function GET() {
   return NextResponse.json(healthRecords);
 }
