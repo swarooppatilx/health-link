@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from "next/navigation";
 import { useState } from 'react';
 import Link from 'next/link';
 
@@ -13,6 +14,7 @@ export default function SignupPage() {
 
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const router = useRouter(); // useRouter for navigation
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -49,6 +51,8 @@ export default function SignupPage() {
         mobile: '',
         email: '',
       });
+      // Redirect to the homepage
+      router.push("/home");
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message || 'Failed to create account');
