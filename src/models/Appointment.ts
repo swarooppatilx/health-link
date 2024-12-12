@@ -15,16 +15,16 @@ const AppointmentSchema = new mongoose.Schema(
       required: true,
     },
     duration: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     painSeverity: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     underlyingConditions: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     createdAt: {
       type: Date,
@@ -33,9 +33,11 @@ const AppointmentSchema = new mongoose.Schema(
   },
   {
     timestamps: true, // Automatically create `createdAt` and `updatedAt` fields
-  }
+  },
 );
 
-const Appointment = mongoose.models.Appointment || mongoose.model('Appointment', AppointmentSchema);
+const Appointment =
+  mongoose.models.Appointment ||
+  mongoose.model('Appointment', AppointmentSchema);
 
 export { Appointment };

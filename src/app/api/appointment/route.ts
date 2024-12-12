@@ -8,11 +8,11 @@ import { Appointment } from '@/models/Appointment';
 const AppointmentSchema = z.object({
   hospitalId: z.string().min(1, 'Hospital ID is required'),
   date: z.string().min(1, 'Date is required'),
-  time: z.string().min(1,'Time is required'),
+  time: z.string().min(1, 'Time is required'),
   symptoms: z.string().min(1, 'Symptoms description is required'),
   duration: z.string().min(1, 'Duration is required'),
   painSeverity: z.string().min(1, 'Pain Severity is required'),
-  underlyingConditions: z.string().min(1, 'Chronic Conditions is required')
+  underlyingConditions: z.string().min(1, 'Chronic Conditions is required'),
 });
 
 export async function POST(req: NextRequest) {
@@ -29,26 +29,30 @@ export async function POST(req: NextRequest) {
       symptoms: parsedBody.symptoms,
       duration: parsedBody.duration,
       painSeverity: parsedBody.painSeverity,
-      underlyingConditions: parsedBody.underlyingConditions
+      underlyingConditions: parsedBody.underlyingConditions,
     });
 
     return NextResponse.json(
-      { message: 'Appointment saved successfully!', success: true, data: newAppointment },
-      { status: 201 }
+      {
+        message: 'Appointment saved successfully!',
+        success: true,
+        data: newAppointment,
+      },
+      { status: 201 },
     );
   } catch (error) {
     if (error instanceof z.ZodError) {
-        console.log(req.json())
+      console.log(req.json());
       return NextResponse.json(
         { message: 'Validation error.', success: false, errors: error.errors },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     console.error('Error saving appointment:', error);
     return NextResponse.json(
       { message: 'Internal server error.', success: false },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

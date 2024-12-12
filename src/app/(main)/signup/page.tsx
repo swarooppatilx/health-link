@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Link from 'next/link';
 
@@ -52,7 +52,7 @@ export default function SignupPage() {
         email: '',
       });
       // Redirect to the homepage
-      router.push("/home");
+      router.push('/home');
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message || 'Failed to create account');

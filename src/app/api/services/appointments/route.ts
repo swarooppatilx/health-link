@@ -19,9 +19,14 @@ export async function GET() {
       updatedAt: appointment.updatedAt,
     }));
 
-    return new NextResponse(JSON.stringify(formattedAppointments), { status: 200 });
+    return new NextResponse(JSON.stringify(formattedAppointments), {
+      status: 200,
+    });
   } catch (error) {
     console.error('Error fetching appointments:', error);
-    return new NextResponse(JSON.stringify({ message: 'Internal Server Error' }), { status: 500 });
+    return new NextResponse(
+      JSON.stringify({ message: 'Internal Server Error' }),
+      { status: 500 },
+    );
   }
 }

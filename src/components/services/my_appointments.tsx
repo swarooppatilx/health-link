@@ -8,17 +8,21 @@ import Loading from '@/app/loading';
 import { fetcher } from '@/lib/fetcher';
 
 type Appointment = {
-  id: string,
-  date: string,
-  symptoms: string,
-  createdAt: string
-}
+  id: string;
+  date: string;
+  symptoms: string;
+  createdAt: string;
+};
 
 const MyAppointments = () => {
-  const { data, isLoading } = useSWR<Appointment[]>('/api/services/appointments', fetcher);
+  const { data, isLoading } = useSWR<Appointment[]>(
+    '/api/services/appointments',
+    fetcher,
+  );
 
   const [showAll, setShowAll] = useState(false);
-  const [selectedAppointment, setSelectedAppointment] = useState<Appointment | null>(null);
+  const [selectedAppointment, setSelectedAppointment] =
+    useState<Appointment | null>(null);
 
   if (isLoading) return <Loading />;
 
@@ -33,9 +37,13 @@ const MyAppointments = () => {
     return (
       <div className='mb-4 rounded-lg bg-white p-4'>
         <h2 className='mb-1 font-bold'>Appointment</h2>
-        <p className='mb-1 text-sm'>Date: {new Date(date).toLocaleDateString()}</p>
+        <p className='mb-1 text-sm'>
+          Date: {new Date(date).toLocaleDateString()}
+        </p>
         <p className='mb-1 text-sm'>Symptoms: {symptoms}</p>
-        <p className='mb-1 text-sm'>Created At: {new Date(createdAt).toLocaleString()}</p>
+        <p className='mb-1 text-sm'>
+          Created At: {new Date(createdAt).toLocaleString()}
+        </p>
       </div>
     );
   };
@@ -59,26 +67,24 @@ const MyAppointments = () => {
           ) : (
             <p>No appointments available.</p>
           )
+        ) : selectedAppointment ? (
+          <>
+            {renderAppointmentCard(selectedAppointment)}
+            <div
+              className='mb-4 flex cursor-pointer items-center rounded-lg bg-white p-4'
+              onClick={() => setShowAll(true)}
+            >
+              <FontAwesomeIcon
+                icon={faFileMedical}
+                className='mr-2 h-5 w-5 text-blue-600'
+              />
+              <span className='font-semibold text-blue-600'>
+                Previous Appointments
+              </span>
+            </div>
+          </>
         ) : (
-          selectedAppointment ? (
-            <>
-              {renderAppointmentCard(selectedAppointment)}
-              <div
-                className='mb-4 flex cursor-pointer items-center rounded-lg bg-white p-4'
-                onClick={() => setShowAll(true)}
-              >
-                <FontAwesomeIcon
-                  icon={faFileMedical}
-                  className='mr-2 h-5 w-5 text-blue-600'
-                />
-                <span className='font-semibold text-blue-600'>
-                  Previous Appointments
-                </span>
-              </div>
-            </>
-          ) : (
-            <p>No appointments available.</p>
-          )
+          <p>No appointments available.</p>
         )}
       </div>
     </div>

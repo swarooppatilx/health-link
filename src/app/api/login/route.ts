@@ -34,7 +34,11 @@ export async function POST(req: Request) {
     await setSession(existingUser._id);
 
     return NextResponse.json(
-      { message: 'User loggedin up successfully!', success: true, data: existingUser },
+      {
+        message: 'User loggedin up successfully!',
+        success: true,
+        data: existingUser,
+      },
       { status: 201 },
     );
   } catch (error) {
