@@ -95,13 +95,13 @@ export default function LoginPage() {
 
   return (
     <div className='mx-auto flex h-screen max-w-md flex-col bg-gray-100 p-4'>
-      <div className='flex flex-grow flex-col'>
+      <div className='flex flex-grow flex-col p-4'>
         <Link href='/home'>
           <button className='self-end text-blue-600 transition-all hover:text-blue-800'>
             ✕ Close
           </button>
         </Link>
-        <div className='mt-8 text-center'>
+        <div className='mt-40'>
           <h1 className='text-2xl font-semibold text-gray-800'>
             Enter your email
           </h1>
@@ -162,6 +162,20 @@ export default function LoginPage() {
                 {isLoading ? 'Verifying OTP...' : 'Verify OTP'}
               </button>
             </form>
+          </div>
+        )}
+
+        {!otpVerified && !successMessage && (
+          <div className='mt-8 text-center'>
+            <p className='text-sm text-gray-600'>
+              Don&apos;t have an account?{' '}
+              <Link
+                href='/signup'
+                className='text-blue-600 hover:text-blue-800'
+              >
+                Sign up here
+              </Link>
+            </p>
           </div>
         )}
 

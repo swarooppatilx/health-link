@@ -109,7 +109,7 @@ export default function SignupPage() {
               <button className='text-blue-700'>✕ Close</button>
             </div>
           </Link>
-          <div className='mt-8'>
+          <div className='mt-40'>
             <h1 className='text-2xl font-semibold'>Create Your Account</h1>
             <p className='mt-4'>
               Fill in the details below to set up your account. If you already
@@ -179,6 +179,20 @@ export default function SignupPage() {
                 Verify OTP
               </button>
             </form>
+          )}
+
+          {!isOtpSent && (
+            <div className='mt-6 text-center'>
+              <p className='text-sm text-gray-600'>
+                Already have an account?{' '}
+                <Link
+                  href='/login'
+                  className='text-blue-600 hover:text-blue-800'
+                >
+                  Login here
+                </Link>
+              </p>
+            </div>
           )}
 
           {error && <p className='mt-4 text-red-600'>{error}</p>}
