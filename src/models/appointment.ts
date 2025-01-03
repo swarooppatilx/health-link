@@ -5,7 +5,9 @@ import { ResultSetHeader, RowDataPacket } from 'mysql2'; // Import ResultSetHead
 export interface Appointment {
   id: number;
   hospitalId: string;
-  date: Date;
+  userId: string;
+  date: string;
+  time: string;
   symptoms: string;
   duration: string;
   painSeverity: string;
@@ -23,7 +25,9 @@ export const getAppointments = async (): Promise<Appointment[]> => {
   return results.map((result) => ({
     id: result.id,
     hospitalId: result.hospitalId,
+    userId: result.userId,
     date: result.date,
+    time: result.time,
     symptoms: result.symptoms,
     duration: result.duration,
     painSeverity: result.painSeverity,
@@ -45,7 +49,9 @@ export const getAppointmentById = async (
     ? {
         id: results[0].id,
         hospitalId: results[0].hospitalId,
+        userId: results[0].userId,
         date: results[0].date,
+        time: results[0].time,
         symptoms: results[0].symptoms,
         duration: results[0].duration,
         painSeverity: results[0].painSeverity,
@@ -55,11 +61,35 @@ export const getAppointmentById = async (
       }
     : null; // Return the first result if it exists, or null
 };
+// Function to get appointments by user ID
+export const getAppointmentsByUserId = async (
+  userId: string,
+): Promise<Appointment[]> => {
+  const connection = await getConnection(); // Get the database connection
+  const sql = 'SELECT * FROM appointments WHERE userId = ?';
+
+  const [results] = await connection.execute<RowDataPacket[]>(sql, [userId]); // Execute the query using the connection
+  return results.map((result) => ({
+    id: result.id,
+    hospitalId: result.hospitalId,
+    userId: result.userId,
+    date: result.date,
+    time: result.time,
+    symptoms: result.symptoms,
+    duration: result.duration,
+    painSeverity: result.painSeverity,
+    underlyingConditions: result.underlyingConditions,
+    createdAt: result.createdAt,
+    updatedAt: result.updatedAt,
+  }));
+};
 
 // Function to create a new appointment
 export const createAppointment = async (
   hospitalId: string,
-  date: Date,
+  userId: string,
+  date: string,
+  time: string,
   symptoms: string,
   duration: string,
   painSeverity: string,
@@ -67,11 +97,13 @@ export const createAppointment = async (
 ): Promise<Appointment> => {
   const connection = await getConnection(); // Get the database connection
   const sql =
-    'INSERT INTO appointments (hospitalId, date, symptoms, duration, painSeverity, underlyingConditions) VALUES (?, ?, ?, ?, ?, ?)';
+    'INSERT INTO appointments (hospitalId, userId, date, time, symptoms, duration, painSeverity, underlyingConditions) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
 
   const [result] = await connection.execute<ResultSetHeader>(sql, [
     hospitalId,
+    userId,
     date,
+    time,
     symptoms,
     duration,
     painSeverity,
@@ -84,7 +116,9 @@ export const createAppointment = async (
   return {
     id: appointmentId,
     hospitalId,
+    userId,
     date,
+    time,
     symptoms,
     duration,
     painSeverity,

@@ -94,7 +94,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className='mx-auto flex h-screen max-w-md flex-col p-4 bg-gray-100'>
+    <div className='mx-auto flex h-screen max-w-md flex-col bg-gray-100 p-4'>
       <div className='flex flex-grow flex-col'>
         <Link href='/home'>
           <button className='self-end text-blue-600 transition-all hover:text-blue-800'>

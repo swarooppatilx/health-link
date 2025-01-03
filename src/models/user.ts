@@ -16,9 +16,9 @@ export interface User {
 export const getUsers = async (): Promise<User[]> => {
   const connection = await getConnection(); // Get the database connection
   const sql = 'SELECT * FROM users';
-  
+
   const [results] = await connection.execute<RowDataPacket[]>(sql); // Execute the query using the connection
-  return results.map(result => ({
+  return results.map((result) => ({
     id: result.id,
     firstName: result.firstName,
     lastName: result.lastName,
@@ -33,7 +33,7 @@ export const getUsers = async (): Promise<User[]> => {
 export const getUserById = async (id: number): Promise<User | null> => {
   const connection = await getConnection(); // Get the database connection
   const sql = 'SELECT * FROM users WHERE id = ?';
-  
+
   const [results] = await connection.execute<RowDataPacket[]>(sql, [id]); // Execute the query using the connection
   return results.length > 0
     ? {
@@ -52,7 +52,7 @@ export const getUserById = async (id: number): Promise<User | null> => {
 export const getUserByEmail = async (email: string): Promise<User | null> => {
   const connection = await getConnection(); // Get the database connection
   const sql = 'SELECT * FROM users WHERE email = ?';
-  
+
   const [results] = await connection.execute<RowDataPacket[]>(sql, [email]); // Execute the query using the connection
   return results.length > 0
     ? {

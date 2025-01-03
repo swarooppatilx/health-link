@@ -1,58 +1,70 @@
-import { NextResponse } from 'next/server';
-import { NextRequest } from 'next/server';
-import { z } from 'zod';
-import { connectToDatabase } from '@/lib/mongodb';
-import { Appointment } from '@/models/appointment';
+import { NextRequest, NextResponse } from 'next/server';
+import { createAppointment } from '@/models/appointment'; // Assuming the `createAppointment` function is imported from lib/appointment
+import { z } from 'zod'; // Optional: Using Zod for validation
+import { getSession } from '@/lib/session'; // Ensure this function correctly fetches session info
 
-// Zod Schema for validation
+// Create a Zod schema for validating the incoming data
 const AppointmentSchema = z.object({
-  hospitalId: z.string().min(1, 'Hospital ID is required'),
-  date: z.string().min(1, 'Date is required'),
-  time: z.string().min(1, 'Time is required'),
-  symptoms: z.string().min(1, 'Symptoms description is required'),
-  duration: z.string().min(1, 'Duration is required'),
-  painSeverity: z.string().min(1, 'Pain Severity is required'),
-  underlyingConditions: z.string().min(1, 'Chronic Conditions is required'),
+  hospitalId: z.string(),
+  date: z.string(),
+  time: z.string(),
+  symptoms: z.string(),
+  duration: z.string(),
+  painSeverity: z.string(),
+  underlyingConditions: z.string().optional(),
 });
 
 export async function POST(req: NextRequest) {
   try {
-    await connectToDatabase();
-
+    // Parse the incoming JSON request body
     const body = await req.json();
-    const parsedBody = AppointmentSchema.parse(body);
+    const parsedData = AppointmentSchema.parse(body); // Validate the incoming data
 
-    // Save appointment to database
-    const newAppointment = await Appointment.create({
-      hospitalId: parsedBody.hospitalId,
-      date: new Date(`${parsedBody.date}T${parsedBody.time}`), // Combine date and time
-      symptoms: parsedBody.symptoms,
-      duration: parsedBody.duration,
-      painSeverity: parsedBody.painSeverity,
-      underlyingConditions: parsedBody.underlyingConditions,
-    });
+    const {
+      hospitalId,
+      date,
+      time,
+      symptoms,
+      duration,
+      painSeverity,
+      underlyingConditions,
+    } = parsedData;
 
+    // Get the userId from the session
+    const userId = await getSession();
+
+    if (!userId) {
+      throw new Error('User not authenticated');
+    }
+
+    // Create the appointment using the validated data
+    const appointment = await createAppointment(
+      hospitalId,
+      userId,
+      date,
+      time,
+      symptoms,
+      duration,
+      painSeverity,
+      underlyingConditions || '',
+    );
+
+    // Return a success response with the appointment data
     return NextResponse.json(
       {
-        message: 'Appointment saved successfully!',
-        success: true,
-        data: newAppointment,
+        message: 'Appointment created successfully!',
+        appointment,
       },
       { status: 201 },
     );
   } catch (error) {
-    if (error instanceof z.ZodError) {
-      console.log(req.json());
-      return NextResponse.json(
-        { message: 'Validation error.', success: false, errors: error.errors },
-        { status: 400 },
-      );
-    }
-
-    console.error('Error saving appointment:', error);
+    // Handle errors (e.g., invalid data or server issues)
     return NextResponse.json(
-      { message: 'Internal server error.', success: false },
-      { status: 500 },
+      {
+        error: 'Failed to create the appointment. Please check the data.',
+        details: error instanceof Error ? error.message : 'Unknown error',
+      },
+      { status: 400 },
     );
   }
 }

@@ -47,7 +47,6 @@ export const createOtp = async (email: string): Promise<OTPVerification> => {
   };
 };
 
-
 export const verifyOtp = async (
   email: string,
   otp: string,
@@ -90,7 +89,6 @@ export const verifyOtp = async (
   return false; // Invalid or expired OTP
 };
 
-
 export async function sendOtp(email: string, otp: string) {
   try {
     // Ensure the environment variables are loaded properly
@@ -123,4 +121,4 @@ export async function sendOtp(email: string, otp: string) {
     console.error('Error sending OTP:', error);
     throw new Error('Failed to send OTP email.');
   }
-};
+}

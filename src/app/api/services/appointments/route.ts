@@ -1,25 +1,28 @@
-import { connectToDatabase } from '@/lib/mongodb';
-import { Appointment } from '@/models/appointment';
 import { NextResponse } from 'next/server';
+import { getAppointmentsByUserId } from '@/models/appointment'; // Import the getAppointments function from the model
+import { getSession } from '@/lib/session'; // Ensure this function correctly fetches session info
 
 export async function GET() {
   try {
-    // Connect to the database
-    await connectToDatabase();
+    // Fetch all appointments using the model
+    const userId = await getSession();
+    if (!userId) {
+      return new NextResponse(
+        JSON.stringify({ message: 'User not authenticated' }),
+        { status: 401 },
+      );
+    }
+    const appointments = await getAppointmentsByUserId(userId);
 
-    // Fetch all appointments
-    const appointments = await Appointment.find();
+    if (appointments.length === 0) {
+      return new NextResponse(
+        JSON.stringify({ message: 'No appointments found' }),
+        { status: 404 },
+      );
+    }
 
-    // Transform data if necessary
-    const formattedAppointments = appointments.map((appointment) => ({
-      id: appointment._id,
-      date: appointment.date,
-      symptoms: appointment.symptoms,
-      createdAt: appointment.createdAt,
-      updatedAt: appointment.updatedAt,
-    }));
-
-    return new NextResponse(JSON.stringify(formattedAppointments), {
+    // Return the appointments in the response
+    return new NextResponse(JSON.stringify(appointments), {
       status: 200,
     });
   } catch (error) {

@@ -10,6 +10,7 @@ import { fetcher } from '@/lib/fetcher';
 type Appointment = {
   id: string;
   date: string;
+  time: string;
   symptoms: string;
   createdAt: string;
 };
