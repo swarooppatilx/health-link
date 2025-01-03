@@ -1,5 +1,5 @@
 import { connectToDatabase } from '@/lib/mongodb';
-import { Appointment } from '@/models/Appointment';
+import { Appointment } from '@/models/appointment';
 import { NextResponse } from 'next/server';
 
 export async function GET() {

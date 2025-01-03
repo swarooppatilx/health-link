@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { NextRequest } from 'next/server';
 import { z } from 'zod';
 import { connectToDatabase } from '@/lib/mongodb';
-import { Appointment } from '@/models/Appointment';
+import { Appointment } from '@/models/appointment';
 
 // Zod Schema for validation
 const AppointmentSchema = z.object({
