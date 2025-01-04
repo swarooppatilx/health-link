@@ -1,12 +1,11 @@
 import { NextResponse } from 'next/server';
-import { type UserData } from '@/types/basic';
-
-const user: UserData = {
-  id: '1',
-  name: 'John Doe',
-  abha: '12345678',
-  dob: '1990-01-01',
-};
+import { getUserByEmail } from '@/models/user';
+import { getSession } from '@/lib/session';
 export async function GET() {
-  return NextResponse.json(user);
+  const session = await getSession();
+  if (session) {
+    const user = await getUserByEmail(session);
+    return NextResponse.json(user);
+  }
+  return NextResponse.json({ error: 'No session found' });
 }
