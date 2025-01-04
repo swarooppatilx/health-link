@@ -1,8 +1,5 @@
 export type UserData = {
-  id: string;
-  name: string;
-  abha: string;
-  dob: string;
+  firstName: string;
 };
 
 export type ListItem = {

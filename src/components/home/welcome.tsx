@@ -23,10 +23,10 @@ const WelcomeSection = () => {
     <div className='p-4'>
       <div className='mb-2 text-2xl font-bold text-blue-600'>Health Link</div>
       <h1 className='mb-1 text-2xl font-bold'>{getGreeting()}</h1>
-      <h2 className='mb-2 text-2xl font-bold'>{data?.name}</h2>
-      <p className='mb-2 font-bold text-gray-700'>
+      <h2 className='mb-2 text-2xl font-bold'>{data?.firstName}</h2>
+      {/* <p className='mb-2 font-bold text-gray-700'>
         ABHA number: <span className='text-nhs-blue'>{data?.abha}</span>
-      </p>
+      </p> */}
     </div>
   );
 };

@@ -12,6 +12,8 @@ type Appointment = {
   date: string;
   time: string;
   symptoms: string;
+  painSeverity: string;
+  underlyingConditions: string;
   createdAt: string;
 };
 
@@ -33,7 +35,7 @@ const MyAppointments = () => {
   }
 
   const renderAppointmentCard = (appointment: Appointment) => {
-    const { date, symptoms, createdAt } = appointment;
+    const { date, time, symptoms, painSeverity, underlyingConditions, createdAt } = appointment;
 
     return (
       <div className='mb-4 rounded-lg bg-white p-4'>
@@ -41,7 +43,10 @@ const MyAppointments = () => {
         <p className='mb-1 text-sm'>
           Date: {new Date(date).toLocaleDateString()}
         </p>
+        <p className='mb-1 text-sm'>Time: {time}</p>
         <p className='mb-1 text-sm'>Symptoms: {symptoms}</p>
+        <p className='mb-1 text-sm'>Pain Severity: {painSeverity}</p>
+        <p className='mb-1 text-sm'>Underlying Condition: {underlyingConditions}</p>
         <p className='mb-1 text-sm'>
           Created At: {new Date(createdAt).toLocaleString()}
         </p>

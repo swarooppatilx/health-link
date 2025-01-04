@@ -1,41 +1,64 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { getSession } from '@/lib/session'; // Ensure this function correctly fetches session info
+import { getSession } from '@/lib/session';
 
 export async function middleware(request: NextRequest) {
-  const session = await getSession(); // Fetch session data (implementation should fetch based on cookies or headers)
+  const session = await getSession(); // Ensure this correctly fetches session info.
 
-  const loginPath = '/login';
-  const signupPath = '/signup';
-  const homePath = '/home';
-
-  const isAuthPath =
-    request.nextUrl.pathname === loginPath ||
-    request.nextUrl.pathname === signupPath;
+  const publicPaths = ['/login', '/signup', '/intro', '/_not-found']; // Paths accessible without login.
+  const isPublicPath = publicPaths.includes(request.nextUrl.pathname);
 
   if (session) {
-    // If the user has a session and tries to access login/signup, redirect to the home page
-    if (isAuthPath) {
-      return NextResponse.redirect(new URL(homePath, request.url));
+    // If logged in, prevent access to login/signup and redirect to `/home`.
+    if (
+      request.nextUrl.pathname === '/login' ||
+      request.nextUrl.pathname === '/signup'
+    ) {
+      return NextResponse.redirect(new URL('/home', request.url));
     }
   } else {
-    // If the user doesn't have a session and is not on the login or signup page, redirect to login
-    if (!isAuthPath) {
-      return NextResponse.redirect(new URL(loginPath, request.url));
+    // If not logged in, block access to protected paths.
+    const protectedPaths = [
+      '/dashboard',
+      '/health',
+      '/health/records',
+      '/home',
+      '/messages',
+      '/services',
+      '/services/appointment',
+      '/services/appointment/hospitals',
+      '/services/prescriptions',
+    ];
+    const isProtectedPath = protectedPaths.some((path) =>
+      request.nextUrl.pathname.startsWith(path),
+    );
+
+    if (isProtectedPath && !isPublicPath) {
+      return NextResponse.redirect(new URL('/login', request.url));
     }
   }
 
-  // Allow the request to proceed
+  // Allow API routes to be publicly accessible.
+  if (request.nextUrl.pathname.startsWith('/api')) {
+    return NextResponse.next();
+  }
+
+  // Proceed with the request.
   return NextResponse.next();
 }
 
-// Specify the paths where the middleware applies
+// Specify the paths where the middleware applies.
 export const config = {
   matcher: [
-    '/home/:path*', // Protect the home page and its sub-paths
-    '/dashboard/:path*', // Example: Protect dashboard pages
-    '/signup', // Block access to signup for authenticated users
-    '/login', // Block access to login for authenticated users
-    '/', // Protect the root path
+    '/',
+    '/dashboard',
+    '/health/:path*',
+    '/home',
+    '/intro',
+    '/login',
+    '/messages',
+    '/services/:path*',
+    '/signup',
+    '/_not-found',
   ],
 };
